@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "AttributionContribution": {
+      "properties": {
+        "feature": {
+          "title": "Feature",
+          "type": "string"
+        },
+        "contribution": {
+          "title": "Contribution",
+          "type": "number"
+        },
+        "direction": {
+          "title": "Direction",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "feature",
+        "contribution",
+        "direction",
+        "confidence",
+        "explanation"
+      ],
+      "title": "AttributionContribution",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "note_id": {
+      "title": "Note Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "primary_metric": {
+      "title": "Primary Metric",
+      "type": "string"
+    },
+    "metric_value": {
+      "title": "Metric Value",
+      "type": "number"
+    },
+    "baseline_value": {
+      "title": "Baseline Value",
+      "type": "number"
+    },
+    "lift": {
+      "title": "Lift",
+      "type": "number"
+    },
+    "contributions": {
+      "items": {
+        "$ref": "#/$defs/AttributionContribution"
+      },
+      "title": "Contributions",
+      "type": "array"
+    },
+    "caveat": {
+      "default": "该归因基于相关性和对照基线，不代表严格因果。",
+      "title": "Caveat",
+      "type": "string"
+    }
+  },
+  "required": [
+    "note_id",
+    "account_id",
+    "primary_metric",
+    "metric_value",
+    "baseline_value",
+    "lift"
+  ],
+  "title": "PerformanceAttribution",
+  "type": "object"
+}

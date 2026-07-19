@@ -1,0 +1,106 @@
+{
+  "schema": "tool_groups.v1",
+  "groups": [
+    {
+      "id": "jobs",
+      "label": "任务运维",
+      "tools": [
+        "list_job_dead_letters",
+        "replay_job_dead_letter"
+      ]
+    },
+    {
+      "id": "enterprise",
+      "label": "企业管控",
+      "tools": [
+        "create_enterprise_approval",
+        "decide_enterprise_approval",
+        "enterprise_dlp_scan",
+        "get_enterprise_budget",
+        "get_enterprise_controls",
+        "verify_enterprise_audit"
+      ]
+    },
+    {
+      "id": "operations",
+      "label": "发后运营",
+      "tools": [
+        "analyze_abn_experiment",
+        "analyze_performance",
+        "assign_experiment_variant",
+        "choose_content_bandit",
+        "create_abn_experiment",
+        "create_content_calendar",
+        "create_content_series",
+        "generate_retrospective",
+        "get_account_weight_trend",
+        "get_performance_attribution",
+        "record_experiment_outcome",
+        "search_asset_library",
+        "sync_published_metrics",
+        "update_content_bandit"
+      ]
+    },
+    {
+      "id": "publish",
+      "label": "发布流",
+      "tools": [
+        "approve_publish_draft",
+        "create_publish_draft",
+        "get_publish_windows",
+        "preview_publish_draft",
+        "publish_note",
+        "schedule_note"
+      ]
+    },
+    {
+      "id": "verify",
+      "label": "校验门禁",
+      "tools": [
+        "check_compliance",
+        "check_originality",
+        "verify_claims"
+      ]
+    },
+    {
+      "id": "generate",
+      "label": "生成/改写",
+      "tools": [
+        "diagnose_xhs_note",
+        "draft_comment_reply",
+        "generate_from_hot",
+        "generate_xhs_note",
+        "generate_xhs_note_variants",
+        "plan_content_outline",
+        "rewrite_xhs_note"
+      ]
+    },
+    {
+      "id": "research",
+      "label": "研究/选题",
+      "tools": [
+        "analyze_hot_notes",
+        "search_hot_notes",
+        "search_trending_topics",
+        "suggest_topics_by_health"
+      ]
+    },
+    {
+      "id": "account",
+      "label": "账号/登录",
+      "tools": [
+        "check_account_login",
+        "diagnose_account",
+        "logout_account",
+        "query_account_weight",
+        "query_content_health",
+        "start_account_login",
+        "sync_account_analytics"
+      ]
+    }
+  ],
+  "read_order": [
+    "ux.status → ux.summary → ux.next_step → 业务字段",
+    "黄金路径: research → generate → verify → publish → operations"
+  ]
+}

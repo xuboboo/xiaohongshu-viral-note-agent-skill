@@ -1,0 +1,30 @@
+{
+  "total": 1750,
+  "counts": {
+    "trigger_should": 60,
+    "trigger_should_not": 40,
+    "routing": 50,
+    "hot_search": 80,
+    "dedup": 60,
+    "hot_ranking": 80,
+    "trend_detection": 60,
+    "mechanism_distillation": 60,
+    "generation": 120,
+    "graphic": 50,
+    "video": 50,
+    "rewrite": 60,
+    "factuality": 80,
+    "originality": 80,
+    "compliance": 120,
+    "account_weight": 80,
+    "login": 80,
+    "publishing": 120,
+    "provider_contract": 100,
+    "sse": 80,
+    "mcp": 60,
+    "a2a": 40,
+    "adversarial": 120,
+    "protocol_smoke": 20
+  },
+  "version": "4.0.0"
+}

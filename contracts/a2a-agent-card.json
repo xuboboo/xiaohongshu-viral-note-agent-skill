@@ -1,0 +1,144 @@
+{
+  "name": "小红书爆款笔记生成 agent Skill",
+  "description": "研究公开热门内容、生成原创笔记、估算账号健康并执行经批准的发布流程。搜索质量自适应：同 query 质量记忆驱动扩词/重试/多源；低质量样本时自动注入边界约束，高质量时放宽缓存与扩词。",
+  "version": "5.14.5",
+  "supportedInterfaces": [
+    {
+      "url": "/a2a",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    },
+    {
+      "url": "/a2a/stream",
+      "protocolBinding": "JSONRPC+SSE",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": false,
+    "search_quality": {
+      "adaptive": true,
+      "memory": "per-query quality persisted under data/search_quality/",
+      "features": [
+        "quality-driven expand/retry/TTL",
+        "provider priority exploration on poor quality",
+        "generation guards on poor/fair quality",
+        "confidence modulation on topic suggestions",
+        "quality delta tracking across searches"
+      ],
+      "ux_fields": [
+        "search_quality.score (0-100)",
+        "search_quality.label (good/fair/poor/empty)",
+        "search_quality.delta.score_delta",
+        "search_quality.guards.strength (none/soft/hard)"
+      ]
+    }
+  },
+  "defaultInputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "research-hot-notes",
+      "name": "research-hot-notes",
+      "description": "[研究/选题] Executes search_hot_notes. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "research"
+      ]
+    },
+    {
+      "id": "research-trends",
+      "name": "research-trends",
+      "description": "[研究/选题] Executes search_trending_topics. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "research"
+      ]
+    },
+    {
+      "id": "analyze-hot-notes",
+      "name": "analyze-hot-notes",
+      "description": "[研究/选题] Executes analyze_hot_notes. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "research"
+      ]
+    },
+    {
+      "id": "generate-note",
+      "name": "generate-note",
+      "description": "[生成/改写] Executes generate_xhs_note. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "generate"
+      ]
+    },
+    {
+      "id": "account-analysis",
+      "name": "account-analysis",
+      "description": "[账号/登录] Executes query_account_weight. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "account"
+      ]
+    },
+    {
+      "id": "authorized-publishing",
+      "name": "authorized-publishing",
+      "description": "[发布流] Executes create_publish_draft. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "publish"
+      ]
+    },
+    {
+      "id": "enterprise-controls",
+      "name": "enterprise-controls",
+      "description": "[企业管控] Executes get_enterprise_controls. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "enterprise"
+      ]
+    },
+    {
+      "id": "enterprise-budget",
+      "name": "enterprise-budget",
+      "description": "[企业管控] Executes get_enterprise_budget. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "enterprise"
+      ]
+    },
+    {
+      "id": "enterprise-approval-create",
+      "name": "enterprise-approval-create",
+      "description": "[企业管控] Executes create_enterprise_approval. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "enterprise"
+      ]
+    },
+    {
+      "id": "enterprise-approval-decide",
+      "name": "enterprise-approval-decide",
+      "description": "[企业管控] Executes decide_enterprise_approval. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "enterprise"
+      ]
+    },
+    {
+      "id": "enterprise-audit-verify",
+      "name": "enterprise-audit-verify",
+      "description": "[企业管控] Executes verify_enterprise_audit. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "enterprise"
+      ]
+    },
+    {
+      "id": "enterprise-dlp",
+      "name": "enterprise-dlp",
+      "description": "[企业管控] Executes enterprise_dlp_scan. Read ux.status → ux.summary → ux.next_step.",
+      "tags": [
+        "enterprise"
+      ]
+    }
+  ]
+}

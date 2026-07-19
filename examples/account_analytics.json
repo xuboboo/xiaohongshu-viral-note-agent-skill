@@ -1,0 +1,20 @@
+{
+  "account_id": "demo-account",
+  "followers": 12500,
+  "published_note_count": 86,
+  "recent_publish_count_7d": 3,
+  "recent_publish_count_30d": 12,
+  "views_30d": 180000,
+  "likes_30d": 8500,
+  "saves_30d": 6200,
+  "comments_30d": 1100,
+  "shares_30d": 1600,
+  "follows_gained_30d": 720,
+  "profile_visits_30d": 6400,
+  "search_views_30d": 52000,
+  "recommendation_views_30d": 128000,
+  "commercial_note_ratio": 0.18,
+  "deleted_note_count_90d": 1,
+  "violation_count_90d": 0,
+  "category_distribution": {"护肤": 0.74, "生活": 0.16, "其他": 0.10}
+}

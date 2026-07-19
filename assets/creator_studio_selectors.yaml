@@ -1,0 +1,59 @@
+# Selectors are intentionally configurable because the creator UI can change.
+# Prefer accessibility labels/placeholders; CSS is an explicit fallback, never a generic first input.
+login:
+  authenticated_text:
+    - "创作中心"
+    - "发布笔记"
+  risk_text:
+    - "验证码"
+    - "安全验证"
+    - "风险验证"
+  account_name_css:
+    - "[data-testid*=account]"
+    - "[class*=account-name]"
+    - "[class*=user-name]"
+    - "[class*=nickname]"
+publish:
+  entry_text:
+    - "发布笔记"
+    - "发布"
+  graphic_tab_text:
+    - "上传图文"
+    - "图文"
+  video_tab_text:
+    - "上传视频"
+    - "视频"
+  title_placeholders:
+    - "填写标题"
+    - "输入标题"
+  title_labels:
+    - "标题"
+  title_css:
+    - "input[placeholder*='标题']"
+  body_placeholders:
+    - "填写正文"
+    - "输入正文"
+  body_labels:
+    - "正文"
+  body_css:
+    - "textarea[placeholder*='正文']"
+    - "[contenteditable='true']"
+  file_input_css:
+    - "input[type='file']"
+  cover_input_css:
+    - "input[type='file'][accept*=image]"
+  topic_placeholders:
+    - "添加话题"
+    - "搜索话题"
+  topic_labels:
+    - "话题"
+  multi_topic_fill: first_only
+  location_placeholders:
+    - "添加地点"
+    - "搜索地点"
+  location_labels:
+    - "地点"
+  submit_text:
+    - "发布"
+  draft_text:
+    - "保存草稿"

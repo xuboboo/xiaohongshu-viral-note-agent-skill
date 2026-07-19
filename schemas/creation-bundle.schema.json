@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "creation-bundle.schema.json",
+  "title": "CreationBundle",
+  "type": "object",
+  "description": "标题/封面/分页/口播一览包（生成交付附属结构）",
+  "required": ["schema", "selected_title", "title_cluster", "covers", "pages"],
+  "properties": {
+    "schema": { "type": "string", "const": "creation_bundle.v1" },
+    "selected_title": { "type": "string" },
+    "title_cluster": { "type": "array", "items": { "type": "string" } },
+    "title_mechanisms": { "type": "array", "items": { "type": "string" } },
+    "covers": { "type": "array", "items": { "type": "object" } },
+    "pages": { "type": "array", "items": { "type": "object" } },
+    "voiceover": { "type": ["object", "null"] },
+    "video": { "type": ["object", "null"] },
+    "cta": { "type": ["string", "null"] },
+    "pinned_comment": { "type": ["string", "null"] },
+    "topics": { "type": "array", "items": { "type": "string" } },
+    "hashtags": { "type": "array", "items": { "type": "string" } },
+    "seo_tags": { "type": "object" },
+    "cover_media": { "type": "object" },
+    "readiness": { "type": "object" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,4092 @@
+openapi: 3.1.0
+info:
+  title: 小红书爆款笔记生成 agent Skill
+  description: Enterprise-grade hot-note research, multi-model generation, account
+    analytics and controlled publishing Agent Skill.
+  version: 5.14.5
+paths:
+  /v1/research/hot-notes:
+    post:
+      tags:
+      - research
+      summary: Hot Notes
+      operationId: hot_notes_v1_research_hot_notes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotNotesRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HotNotesReport'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/research/trends:
+    post:
+      tags:
+      - research
+      summary: Trends
+      operationId: trends_v1_research_trends_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotNotesRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Trends V1 Research Trends Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/content/generate:
+    post:
+      tags:
+      - content
+      summary: Generate
+      operationId: generate_v1_content_generate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryPackage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/content/generate-with-research:
+    post:
+      tags:
+      - content
+      summary: Generate With Research
+      operationId: generate_with_research_v1_content_generate_with_research_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_generate_with_research_v1_content_generate_with_research_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryPackage'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/content/generate-from-hot:
+    post:
+      tags:
+      - content
+      summary: Generate From Hot
+      description: 热门→选题→一键生成（dry_run 可只选题）。
+      operationId: generate_from_hot_v1_content_generate_from_hot_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotToNoteRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Generate From Hot V1 Content Generate From Hot Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/content/diagnose:
+    post:
+      tags:
+      - content
+      summary: Diagnose
+      operationId: diagnose_v1_content_diagnose_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/xhs_skill__api__routes__content__DiagnoseRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Diagnose V1 Content Diagnose Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/content/rewrite:
+    post:
+      tags:
+      - content
+      summary: Rewrite
+      operationId: rewrite_v1_content_rewrite_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RewriteRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Rewrite V1 Content Rewrite Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/content/reply-draft:
+    post:
+      tags:
+      - content
+      summary: Reply Draft
+      description: 生成授权评论回复草稿；auto_submit 恒为 false。
+      operationId: reply_draft_v1_content_reply_draft_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplyDraftRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Reply Draft V1 Content Reply Draft Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/accounts/{account_id}/analytics/sync:
+    post:
+      tags:
+      - accounts
+      summary: Sync Account
+      operationId: sync_account_v1_accounts__account_id__analytics_sync_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountAnalytics'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountAnalytics'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/weight/query:
+    post:
+      tags:
+      - accounts
+      summary: Query Weight
+      operationId: query_weight_v1_accounts__account_id__weight_query_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/AccountAnalytics'
+              - type: 'null'
+              title: Analytics
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountWeightReport'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/weight:
+    get:
+      tags:
+      - accounts
+      summary: Get Weight
+      operationId: get_weight_v1_accounts__account_id__weight_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountWeightReport'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/content-health:
+    post:
+      tags:
+      - accounts
+      summary: Content Health
+      operationId: content_health_v1_accounts__account_id__content_health_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/AccountAnalytics'
+              - type: 'null'
+              title: Analytics
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Content Health V1 Accounts  Account Id  Content Health
+                  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/diagnose:
+    post:
+      tags:
+      - accounts
+      summary: Diagnose Account
+      operationId: diagnose_account_v1_accounts__account_id__diagnose_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/xhs_skill__api__routes__accounts__DiagnoseRequest'
+              - type: 'null'
+              title: Payload
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Diagnose Account V1 Accounts  Account Id  Diagnose
+                  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/topics/by-health:
+    post:
+      tags:
+      - accounts
+      summary: Topics By Health
+      description: 按内容健康度生成/重排选题（可叠加热门研究）。
+      operationId: topics_by_health_v1_accounts__account_id__topics_by_health_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthTopicsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Topics By Health V1 Accounts  Account Id  Topics By
+                  Health Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/analytics/browser-sync:
+    post:
+      tags:
+      - accounts
+      summary: Sync Account From Browser
+      operationId: sync_account_from_browser_v1_accounts__account_id__analytics_browser_sync_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountAnalytics'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/assets:
+    post:
+      tags:
+      - assets
+      summary: Upload Asset
+      operationId: upload_asset_v1_assets_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_asset_v1_assets_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Upload Asset V1 Assets Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/assets/{asset_id}:
+    delete:
+      tags:
+      - assets
+      summary: Delete Asset
+      operationId: delete_asset_v1_assets__asset_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: asset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Asset Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Delete Asset V1 Assets  Asset Id  Delete
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/auth/start:
+    post:
+      tags:
+      - authentication
+      summary: Start Login
+      operationId: start_login_v1_accounts__account_id__auth_start_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSession'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/auth/status:
+    get:
+      tags:
+      - authentication
+      summary: Login Status
+      operationId: login_status_v1_accounts__account_id__auth_status_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSession'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/auth/logout:
+    post:
+      tags:
+      - authentication
+      summary: Logout
+      operationId: logout_v1_accounts__account_id__auth_logout_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: delete_session
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Delete Session
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSession'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/auth/qr:
+    get:
+      tags:
+      - authentication
+      summary: Login Qr
+      operationId: login_qr_v1_accounts__account_id__auth_qr_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/publishing/drafts:
+    post:
+      tags:
+      - publishing
+      summary: Create Draft
+      operationId: create_draft_v1_accounts__account_id__publishing_drafts_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DraftRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishDraft'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/accounts/{account_id}/publishing/selector-health:
+    get:
+      tags:
+      - publishing
+      summary: Selector Health
+      description: 发布页选择器 canary：返回 ok / missing / ui_version_hint。
+      operationId: selector_health_v1_accounts__account_id__publishing_selector_health_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Selector Health V1 Accounts  Account Id  Publishing
+                  Selector Health Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/publishing/drafts/{draft_id}/preview:
+    post:
+      tags:
+      - publishing
+      summary: Preview
+      operationId: preview_v1_publishing_drafts__draft_id__preview_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: draft_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Draft Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishDraft'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/publishing/drafts/{draft_id}/preview-image:
+    get:
+      tags:
+      - publishing
+      summary: Preview Image
+      operationId: preview_image_v1_publishing_drafts__draft_id__preview_image_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: draft_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Draft Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/publishing/drafts/{draft_id}/approve:
+    post:
+      tags:
+      - publishing
+      summary: Approve
+      operationId: approve_v1_publishing_drafts__draft_id__approve_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: draft_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Draft Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishApproval'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/publishing/drafts/{draft_id}/publish:
+    post:
+      tags:
+      - publishing
+      summary: Publish
+      operationId: publish_v1_publishing_drafts__draft_id__publish_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: draft_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Draft Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/publishing/drafts/{draft_id}/schedule:
+    post:
+      tags:
+      - publishing
+      summary: Schedule
+      operationId: schedule_v1_publishing_drafts__draft_id__schedule_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: draft_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Draft Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishSchedule'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/publishing/schedules/{schedule_id}:
+    delete:
+      tags:
+      - publishing
+      summary: Cancel Schedule
+      operationId: cancel_schedule_v1_publishing_schedules__schedule_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: schedule_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Schedule Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Cancel Schedule V1 Publishing Schedules  Schedule
+                  Id  Delete
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/research/hot-notes:
+    post:
+      tags:
+      - jobs
+      summary: Submit Hot Notes
+      operationId: submit_hot_notes_v1_jobs_research_hot_notes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotNotesRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/jobs/content/generate:
+    post:
+      tags:
+      - jobs
+      summary: Submit Generate
+      operationId: submit_generate_v1_jobs_content_generate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/jobs/stats:
+    get:
+      tags:
+      - jobs
+      summary: Job Stats
+      operationId: job_stats_v1_jobs_stats_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Job Stats V1 Jobs Stats Get
+      security:
+      - HTTPBearer: []
+  /v1/jobs/dead-letters:
+    get:
+      tags:
+      - jobs
+      summary: List Dead Letters
+      operationId: list_dead_letters_v1_jobs_dead_letters_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+          title: Count
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response List Dead Letters V1 Jobs Dead Letters Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/dead-letters/{message_id}/replay:
+    post:
+      tags:
+      - jobs
+      summary: Replay Dead Letter
+      operationId: replay_dead_letter_v1_jobs_dead_letters__message_id__replay_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: message_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Message Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Replay Dead Letter V1 Jobs Dead Letters  Message Id  Replay
+                  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/dead-letters/{message_id}:
+    delete:
+      tags:
+      - jobs
+      summary: Delete Dead Letter
+      operationId: delete_dead_letter_v1_jobs_dead_letters__message_id__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: message_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Message Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Delete Dead Letter V1 Jobs Dead Letters  Message Id  Delete
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/{job_id}:
+    get:
+      tags:
+      - jobs
+      summary: Get Job
+      operationId: get_job_v1_jobs__job_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/{job_id}/events:
+    get:
+      tags:
+      - jobs
+      summary: Events
+      operationId: events_v1_jobs__job_id__events_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: Last-Event-ID
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last-Event-Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/jobs/{job_id}/cancel:
+    post:
+      tags:
+      - jobs
+      summary: Cancel
+      operationId: cancel_v1_jobs__job_id__cancel_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Cancel V1 Jobs  Job Id  Cancel Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/operations/metrics/sync:
+    post:
+      tags:
+      - operations
+      summary: Sync Metrics
+      operationId: sync_metrics_v1_operations_metrics_sync_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishedMetrics'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Sync Metrics V1 Operations Metrics Sync Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/accounts/{account_id}/notes/{note_id}/attribution:
+    get:
+      tags:
+      - operations
+      summary: Performance Attribution
+      operationId: performance_attribution_v1_operations_accounts__account_id__notes__note_id__attribution_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: note_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Note Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Performance Attribution V1 Operations Accounts  Account
+                  Id  Notes  Note Id  Attribution Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/operations/accounts/{account_id}/weight-trend:
+    get:
+      tags:
+      - operations
+      summary: Weight Trend
+      operationId: weight_trend_v1_operations_accounts__account_id__weight_trend_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Weight Trend V1 Operations Accounts  Account Id  Weight
+                  Trend Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/operations/calendar:
+    post:
+      tags:
+      - operations
+      summary: Create Calendar
+      operationId: create_calendar_v1_operations_calendar_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Create Calendar V1 Operations Calendar Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/series:
+    post:
+      tags:
+      - operations
+      summary: Create Series
+      operationId: create_series_v1_operations_series_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SeriesRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Create Series V1 Operations Series Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/experiments:
+    post:
+      tags:
+      - operations
+      summary: Create Experiment
+      operationId: create_experiment_v1_operations_experiments_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Experiment'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Create Experiment V1 Operations Experiments Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/experiments/{experiment_id}/assign:
+    post:
+      tags:
+      - operations
+      summary: Assign Experiment
+      operationId: assign_experiment_v1_operations_experiments__experiment_id__assign_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: experiment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Experiment Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignmentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Assign Experiment V1 Operations Experiments  Experiment
+                  Id  Assign Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/operations/experiments/outcomes:
+    post:
+      tags:
+      - operations
+      summary: Record Experiment Outcome
+      operationId: record_experiment_outcome_v1_operations_experiments_outcomes_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentOutcome'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Record Experiment Outcome V1 Operations Experiments
+                  Outcomes Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/experiments/{experiment_id}/analysis:
+    get:
+      tags:
+      - operations
+      summary: Analyze Experiment
+      operationId: analyze_experiment_v1_operations_experiments__experiment_id__analysis_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: experiment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Experiment Id
+      - name: minimum_samples_per_variant
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Minimum Samples Per Variant
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Analyze Experiment V1 Operations Experiments  Experiment
+                  Id  Analysis Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/operations/bandit/choose:
+    post:
+      tags:
+      - operations
+      summary: Choose Bandit
+      operationId: choose_bandit_v1_operations_bandit_choose_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BanditDecisionRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Choose Bandit V1 Operations Bandit Choose Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/bandit/update:
+    post:
+      tags:
+      - operations
+      summary: Update Bandit
+      operationId: update_bandit_v1_operations_bandit_update_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BanditUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Update Bandit V1 Operations Bandit Update Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/assets/import:
+    post:
+      tags:
+      - operations
+      summary: Import Asset
+      operationId: import_asset_v1_operations_assets_import_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetImportRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Import Asset V1 Operations Assets Import Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v1/operations/assets:
+    get:
+      tags:
+      - operations
+      summary: Search Assets
+      operationId: search_assets_v1_operations_assets_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: tags
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tags
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Search Assets V1 Operations Assets Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/operations/accounts/{account_id}/notes/{note_id}/retrospective:
+    post:
+      tags:
+      - operations
+      summary: Retrospective
+      operationId: retrospective_v1_operations_accounts__account_id__notes__note_id__retrospective_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: account_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Account Id
+      - name: note_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Note Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Retrospective V1 Operations Accounts  Account Id  Notes  Note
+                  Id  Retrospective Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v1/providers:
+    get:
+      tags:
+      - providers
+      summary: Providers
+      operationId: providers_v1_providers_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Providers V1 Providers Get
+      security:
+      - HTTPBearer: []
+  /v1/providers/{provider_id}/probe:
+    post:
+      tags:
+      - providers
+      summary: Probe
+      operationId: probe_v1_providers__provider_id__probe_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: provider_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider Id
+      - name: model
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Model
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Probe V1 Providers  Provider Id  Probe Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /mcp:
+    post:
+      tags:
+      - mcp
+      summary: Mcp Post
+      operationId: mcp_post_mcp_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: origin
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin
+      - name: accept
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accept
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - mcp
+      summary: Mcp Get
+      operationId: mcp_get_mcp_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: origin
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /.well-known/agent-card.json:
+    get:
+      tags:
+      - a2a
+      summary: Agent Card
+      operationId: agent_card__well_known_agent_card_json_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Agent Card  Well Known Agent Card Json Get
+      security:
+      - HTTPBearer: []
+  /a2a:
+    post:
+      tags:
+      - a2a
+      summary: A2A Endpoint
+      operationId: a2a_endpoint_a2a_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              additionalProperties: true
+              type: object
+              title: Payload
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response A2A Endpoint A2A Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /a2a/stream:
+    post:
+      tags:
+      - a2a
+      summary: A2A Stream
+      operationId: a2a_stream_a2a_stream_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - HTTPBearer: []
+  /health/live:
+    get:
+      summary: Health
+      operationId: health_health_live_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Health Health Live Get
+  /health:
+    get:
+      summary: Authenticated Health
+      operationId: authenticated_health_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Authenticated Health Health Get
+      security:
+      - HTTPBearer: []
+  /health/ready:
+    get:
+      summary: Ready
+      operationId: ready_health_ready_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Ready Health Ready Get
+  /health/diagnostics:
+    get:
+      summary: Health Diagnostics
+      operationId: health_diagnostics_health_diagnostics_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Health Diagnostics Health Diagnostics Get
+      security:
+      - HTTPBearer: []
+  /health/doctor:
+    get:
+      summary: Health Doctor
+      description: 一键诊断：配置档、算法能力、模型签名、选择器钉扎。
+      operationId: health_doctor_health_doctor_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Health Doctor Health Doctor Get
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    AccountAnalytics:
+      properties:
+        account_id:
+          type: string
+          title: Account Id
+        followers:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Followers
+        published_note_count:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Published Note Count
+        recent_publish_count_7d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Recent Publish Count 7D
+        recent_publish_count_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Recent Publish Count 30D
+        average_publish_interval_hours:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Average Publish Interval Hours
+        views_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Views 30D
+        likes_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Likes 30D
+        saves_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Saves 30D
+        comments_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Comments 30D
+        shares_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Shares 30D
+        follows_gained_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Follows Gained 30D
+        profile_visits_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Profile Visits 30D
+        search_views_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Search Views 30D
+        recommendation_views_30d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Recommendation Views 30D
+        commercial_note_ratio:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: 'null'
+          title: Commercial Note Ratio
+        deleted_note_count_90d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Deleted Note Count 90D
+        violation_count_90d:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Violation Count 90D
+        latest_violation_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Latest Violation At
+        category_distribution:
+          additionalProperties:
+            type: number
+          type: object
+          title: Category Distribution
+        note_performance:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Note Performance
+      type: object
+      required:
+      - account_id
+      title: AccountAnalytics
+    AccountWeightReport:
+      properties:
+        score_type:
+          type: string
+          title: Score Type
+          default: ESTIMATED_ACCOUNT_WEIGHT
+        overall_score:
+          anyOf:
+          - type: number
+            maximum: 100.0
+            minimum: 0.0
+          - type: 'null'
+          title: Overall Score
+        confidence:
+          type: string
+          title: Confidence
+        data_completeness:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Data Completeness
+        dimensions:
+          additionalProperties:
+            $ref: '#/components/schemas/DimensionScore'
+          type: object
+          title: Dimensions
+        strengths:
+          items:
+            type: string
+          type: array
+          title: Strengths
+        risks:
+          items:
+            type: string
+          type: array
+          title: Risks
+        recommended_actions:
+          items:
+            type: string
+          type: array
+          title: Recommended Actions
+        missing_data:
+          items:
+            type: string
+          type: array
+          title: Missing Data
+        status:
+          type: string
+          title: Status
+          default: OK
+        disclaimer:
+          type: string
+          title: Disclaimer
+          default: 该分数为系统根据授权数据计算的账号健康与内容分发能力估算，不是小红书官方内部账号权重。
+      type: object
+      required:
+      - confidence
+      - data_completeness
+      title: AccountWeightReport
+    ApprovalRequest:
+      properties:
+        ttl_minutes:
+          type: integer
+          maximum: 120.0
+          minimum: 1.0
+          title: Ttl Minutes
+          default: 30
+        ai_disclosure_confirmed:
+          type: boolean
+          title: Ai Disclosure Confirmed
+          default: false
+        commercial_disclosure_confirmed:
+          type: boolean
+          title: Commercial Disclosure Confirmed
+          default: false
+        account_identity_confirmed:
+          type: boolean
+          title: Account Identity Confirmed
+          default: false
+        enterprise_approval_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Enterprise Approval Id
+      type: object
+      title: ApprovalRequest
+    AssetImportRequest:
+      properties:
+        asset_id:
+          type: string
+          title: Asset Id
+        account_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Id
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        rights_status:
+          type: string
+          title: Rights Status
+          default: USER_OWNED
+      type: object
+      required:
+      - asset_id
+      title: AssetImportRequest
+    AssignmentRequest:
+      properties:
+        subject_id:
+          type: string
+          title: Subject Id
+      type: object
+      required:
+      - subject_id
+      title: AssignmentRequest
+    AuthSession:
+      properties:
+        id:
+          type: string
+          title: Id
+        account_id:
+          type: string
+          title: Account Id
+        tenant_id:
+          type: string
+          title: Tenant Id
+          default: local
+        status:
+          $ref: '#/components/schemas/LoginStatus'
+        qr_image_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Qr Image Url
+        authenticated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Authenticated At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        last_verified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Verified At
+        account_display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Display Name
+        identity_verified:
+          type: boolean
+          title: Identity Verified
+          default: false
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+      type: object
+      required:
+      - id
+      - account_id
+      - status
+      title: AuthSession
+    BanditDecisionRequest:
+      properties:
+        policy_id:
+          type: string
+          title: Policy Id
+        subject_id:
+          type: string
+          title: Subject Id
+        arms:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          minItems: 1
+          title: Arms
+        context:
+          items:
+            type: number
+          type: array
+          maxItems: 128
+          title: Context
+        features:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Features
+        account_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Id
+        auto_account_weight:
+          type: boolean
+          title: Auto Account Weight
+          default: true
+      type: object
+      required:
+      - policy_id
+      - subject_id
+      - arms
+      title: BanditDecisionRequest
+    BanditUpdateRequest:
+      properties:
+        policy_id:
+          type: string
+          title: Policy Id
+        arm_id:
+          type: string
+          title: Arm Id
+        context:
+          items:
+            type: number
+          type: array
+          maxItems: 128
+          title: Context
+        features:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Features
+        account_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Id
+        auto_account_weight:
+          type: boolean
+          title: Auto Account Weight
+          default: true
+        reward:
+          type: number
+          title: Reward
+      type: object
+      required:
+      - policy_id
+      - arm_id
+      - reward
+      title: BanditUpdateRequest
+    Body_generate_with_research_v1_content_generate_with_research_post:
+      properties:
+        request:
+          $ref: '#/components/schemas/GenerateRequest'
+        report:
+          $ref: '#/components/schemas/HotNotesReport'
+      type: object
+      required:
+      - request
+      - report
+      title: Body_generate_with_research_v1_content_generate_with_research_post
+    Body_upload_asset_v1_assets_post:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+      type: object
+      required:
+      - file
+      title: Body_upload_asset_v1_assets_post
+    CalendarRequest:
+      properties:
+        account_id:
+          type: string
+          title: Account Id
+        topics:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          title: Topics
+        fallback_topics:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          title: Fallback Topics
+        days:
+          type: integer
+          maximum: 365.0
+          minimum: 7.0
+          title: Days
+          default: 30
+        posts_per_week:
+          type: integer
+          maximum: 7.0
+          minimum: 1.0
+          title: Posts Per Week
+          default: 3
+      type: object
+      required:
+      - account_id
+      title: CalendarRequest
+    Claim:
+      properties:
+        id:
+          type: string
+          title: Id
+        text:
+          type: string
+          title: Text
+        claim_type:
+          type: string
+          title: Claim Type
+        sources:
+          items:
+            type: string
+          type: array
+          title: Sources
+        evidence_refs:
+          items:
+            $ref: '#/components/schemas/EvidenceReference'
+          type: array
+          title: Evidence Refs
+        verified:
+          type: boolean
+          title: Verified
+          default: false
+        confidence:
+          type: string
+          title: Confidence
+          default: LOW
+        allowed_expression:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Allowed Expression
+        publication_status:
+          type: string
+          title: Publication Status
+          default: REVIEW
+      type: object
+      required:
+      - id
+      - text
+      - claim_type
+      title: Claim
+    CommercialStatus:
+      type: string
+      enum:
+      - NON_COMMERCIAL
+      - ORGANIC_MENTION
+      - CREATOR_SEEDING
+      - COMMERCIAL_COLLABORATION
+      - BRAND_OFFICIAL
+      - STORE_CONVERSION
+      - ECOMMERCE_CONVERSION
+      - LEAD_GENERATION
+      - LIVE_PROMOTION
+      title: CommercialStatus
+    ContentFormat:
+      type: string
+      enum:
+      - graphic
+      - video
+      title: ContentFormat
+    ContentMechanism:
+      properties:
+        audience:
+          type: string
+          title: Audience
+          default: 未明确
+        audience_stage:
+          type: string
+          title: Audience Stage
+          default: 问题认知
+        user_problem:
+          type: string
+          title: User Problem
+          default: ''
+        topic_angle:
+          type: string
+          title: Topic Angle
+          default: ''
+        content_promise:
+          type: string
+          title: Content Promise
+          default: ''
+        title_mechanism:
+          type: string
+          title: Title Mechanism
+          default: ''
+        cover_mechanism:
+          type: string
+          title: Cover Mechanism
+          default: ''
+        opening_mechanism:
+          type: string
+          title: Opening Mechanism
+          default: ''
+        body_structure:
+          items:
+            type: string
+          type: array
+          title: Body Structure
+        trust_signals:
+          items:
+            type: string
+          type: array
+          title: Trust Signals
+        emotional_strategy:
+          type: string
+          title: Emotional Strategy
+          default: 克制
+        search_intent:
+          type: string
+          title: Search Intent
+          default: ''
+        product_exposure_position:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Product Exposure Position
+        cta_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cta Type
+        reusable_principles:
+          items:
+            type: string
+          type: array
+          title: Reusable Principles
+        prohibited_reuse:
+          items:
+            type: string
+          type: array
+          title: Prohibited Reuse
+      type: object
+      title: ContentMechanism
+    CoverOption:
+      properties:
+        headline:
+          type: string
+          title: Headline
+        subheadline:
+          type: string
+          title: Subheadline
+          default: ''
+        supporting_tag:
+          type: string
+          title: Supporting Tag
+          default: ''
+        visual_subject:
+          type: string
+          title: Visual Subject
+          default: ''
+        composition:
+          type: string
+          title: Composition
+          default: ''
+        text_hierarchy:
+          type: string
+          title: Text Hierarchy
+          default: ''
+        image_requirements:
+          items:
+            type: string
+          type: array
+          title: Image Requirements
+      type: object
+      required:
+      - headline
+      title: CoverOption
+    DeliveryPackage:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+        trace_id:
+          type: string
+          title: Trace Id
+        assumptions:
+          items:
+            type: string
+          type: array
+          title: Assumptions
+        research_summary:
+          additionalProperties: true
+          type: object
+          title: Research Summary
+        hot_notes:
+          items:
+            $ref: '#/components/schemas/HotNoteCandidate'
+          type: array
+          title: Hot Notes
+        trend_insights:
+          items:
+            $ref: '#/components/schemas/TrendTopic'
+          type: array
+          title: Trend Insights
+        mechanisms:
+          items:
+            $ref: '#/components/schemas/ContentMechanism'
+          type: array
+          title: Mechanisms
+        strategy:
+          additionalProperties: true
+          type: object
+          title: Strategy
+        title_candidates:
+          items:
+            $ref: '#/components/schemas/TitleCandidate'
+          type: array
+          title: Title Candidates
+        selected_title:
+          type: string
+          title: Selected Title
+        cover_options:
+          items:
+            $ref: '#/components/schemas/CoverOption'
+          type: array
+          title: Cover Options
+        body:
+          type: string
+          title: Body
+        graphic_pages:
+          items:
+            $ref: '#/components/schemas/GraphicPage'
+          type: array
+          title: Graphic Pages
+        video_script:
+          anyOf:
+          - $ref: '#/components/schemas/VideoScript'
+          - type: 'null'
+        media_assets:
+          items:
+            type: string
+          type: array
+          title: Media Assets
+        cover_asset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cover Asset
+        topics:
+          items:
+            type: string
+          type: array
+          title: Topics
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+        product_ids:
+          items:
+            type: string
+          type: array
+          title: Product Ids
+        keyword_map:
+          additionalProperties: true
+          type: object
+          title: Keyword Map
+        hashtags:
+          items:
+            type: string
+          type: array
+          title: Hashtags
+        pinned_comment:
+          type: string
+          title: Pinned Comment
+          default: ''
+        cta:
+          type: string
+          title: Cta
+          default: ''
+        claims:
+          items:
+            $ref: '#/components/schemas/Claim'
+          type: array
+          title: Claims
+        originality_report:
+          additionalProperties: true
+          type: object
+          title: Originality Report
+        compliance_report:
+          additionalProperties: true
+          type: object
+          title: Compliance Report
+        ai_labeling:
+          additionalProperties: true
+          type: object
+          title: Ai Labeling
+        quality_report:
+          additionalProperties: true
+          type: object
+          title: Quality Report
+        content_hash:
+          type: string
+          title: Content Hash
+        publication_status:
+          type: string
+          title: Publication Status
+          default: HUMAN_REVIEW_REQUIRED
+        human_review_required:
+          items:
+            type: string
+          type: array
+          title: Human Review Required
+      type: object
+      required:
+      - task_id
+      - trace_id
+      - selected_title
+      - body
+      - content_hash
+      title: DeliveryPackage
+    DimensionScore:
+      properties:
+        score:
+          type: number
+          maximum: 100.0
+          minimum: 0.0
+          title: Score
+        weight:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Weight
+        evidence:
+          items:
+            type: string
+          type: array
+          title: Evidence
+      type: object
+      required:
+      - score
+      - weight
+      title: DimensionScore
+    DistributionMode:
+      type: string
+      enum:
+      - search
+      - recommendation
+      - hybrid
+      title: DistributionMode
+    DraftRequest:
+      properties:
+        package:
+          $ref: '#/components/schemas/DeliveryPackage'
+        mode:
+          $ref: '#/components/schemas/PublishMode'
+          default: REQUIRE_CONFIRMATION
+      type: object
+      required:
+      - package
+      title: DraftRequest
+    EvidenceReference:
+      properties:
+        evidence_id:
+          type: string
+          title: Evidence Id
+        source:
+          type: string
+          title: Source
+        excerpt:
+          type: string
+          title: Excerpt
+        locator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Locator
+        excerpt_sha256:
+          type: string
+          title: Excerpt Sha256
+        confidence:
+          type: string
+          title: Confidence
+          default: MEDIUM
+        valid_until:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Valid Until
+      type: object
+      required:
+      - evidence_id
+      - source
+      - excerpt
+      - excerpt_sha256
+      title: EvidenceReference
+    Experiment:
+      properties:
+        id:
+          type: string
+          title: Id
+        tenant_id:
+          type: string
+          title: Tenant Id
+          default: local
+        account_id:
+          type: string
+          title: Account Id
+        name:
+          type: string
+          title: Name
+        hypothesis:
+          type: string
+          title: Hypothesis
+        primary_metric:
+          type: string
+          title: Primary Metric
+        variants:
+          items:
+            $ref: '#/components/schemas/ExperimentVariant'
+          type: array
+          title: Variants
+        status:
+          type: string
+          title: Status
+          default: DRAFT
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        ended_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Ended At
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - account_id
+      - name
+      - hypothesis
+      - primary_metric
+      - variants
+      title: Experiment
+    ExperimentOutcome:
+      properties:
+        experiment_id:
+          type: string
+          title: Experiment Id
+        subject_id:
+          type: string
+          title: Subject Id
+        variant_id:
+          type: string
+          title: Variant Id
+        metric:
+          type: string
+          title: Metric
+        value:
+          type: number
+          title: Value
+        recorded_at:
+          type: string
+          format: date-time
+          title: Recorded At
+      type: object
+      required:
+      - experiment_id
+      - subject_id
+      - variant_id
+      - metric
+      - value
+      title: ExperimentOutcome
+    ExperimentVariant:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        payload:
+          additionalProperties: true
+          type: object
+          title: Payload
+        allocation:
+          type: number
+          exclusiveMinimum: 0.0
+          title: Allocation
+          default: 1.0
+      type: object
+      required:
+      - id
+      - name
+      - payload
+      title: ExperimentVariant
+    GenerateRequest:
+      properties:
+        topic:
+          type: string
+          maxLength: 300
+          minLength: 1
+          title: Topic
+        objective:
+          type: string
+          title: Objective
+          default: search_growth
+        format:
+          $ref: '#/components/schemas/ContentFormat'
+          default: graphic
+        distribution_mode:
+          $ref: '#/components/schemas/DistributionMode'
+          default: hybrid
+        commercial_status:
+          $ref: '#/components/schemas/CommercialStatus'
+          default: NON_COMMERCIAL
+        account_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Id
+        target_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Audience
+        product:
+          additionalProperties: true
+          type: object
+          title: Product
+        evidence:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Evidence
+        brand_voice:
+          additionalProperties: true
+          type: object
+          title: Brand Voice
+        constraints:
+          items:
+            type: string
+          type: array
+          title: Constraints
+        research_current_trends:
+          type: boolean
+          title: Research Current Trends
+          default: true
+        web_results:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Web Results
+        candidate_count:
+          type: integer
+          maximum: 20.0
+          minimum: 1.0
+          title: Candidate Count
+          default: 6
+        provider:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+        suggested_topic:
+          anyOf:
+          - type: string
+            maxLength: 300
+          - type: 'null'
+          title: Suggested Topic
+        topic_angle:
+          anyOf:
+          - type: string
+            maxLength: 120
+          - type: 'null'
+          title: Topic Angle
+        topic_reason:
+          anyOf:
+          - type: string
+            maxLength: 400
+          - type: 'null'
+          title: Topic Reason
+        note_style:
+          anyOf:
+          - type: string
+            maxLength: 32
+          - type: 'null'
+          title: Note Style
+          description: review|seeding|avoid_pitfall|checklist|tutorial|store_visit|comparison|decision
+        narrative_framework:
+          anyOf:
+          - type: string
+            maxLength: 16
+          - type: 'null'
+          title: Narrative Framework
+          description: pas|aida|bab|quest|four_p|scqa|auto
+        variant_index:
+          type: integer
+          maximum: 20.0
+          minimum: 0.0
+          title: Variant Index
+          default: 0
+        video_duration_seconds:
+          anyOf:
+          - type: integer
+            maximum: 60.0
+            minimum: 15.0
+          - type: 'null'
+          title: Video Duration Seconds
+      type: object
+      required:
+      - topic
+      title: GenerateRequest
+    GraphicPage:
+      properties:
+        page:
+          type: integer
+          title: Page
+        purpose:
+          type: string
+          title: Purpose
+        headline:
+          type: string
+          title: Headline
+        body_copy:
+          type: string
+          title: Body Copy
+        visual_direction:
+          type: string
+          title: Visual Direction
+        layout:
+          type: string
+          title: Layout
+          default: ''
+        required_assets:
+          items:
+            type: string
+          type: array
+          title: Required Assets
+        product_visibility:
+          type: string
+          title: Product Visibility
+          default: none
+      type: object
+      required:
+      - page
+      - purpose
+      - headline
+      - body_copy
+      - visual_direction
+      title: GraphicPage
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    HealthTopicsRequest:
+      properties:
+        analytics:
+          anyOf:
+          - $ref: '#/components/schemas/AccountAnalytics'
+          - type: 'null'
+        base_topic:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          title: Base Topic
+        query:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          title: Query
+        providers:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Providers
+        web_results:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Web Results
+        limit:
+          type: integer
+          maximum: 12.0
+          minimum: 3.0
+          title: Limit
+          default: 8
+      type: object
+      title: HealthTopicsRequest
+      description: 健康度选题：可叠加热门研究后重排。
+    HotNoteCandidate:
+      properties:
+        id:
+          type: string
+          title: Id
+        url:
+          type: string
+          title: Url
+        canonical_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Canonical Url
+        title:
+          type: string
+          title: Title
+        snippet:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Snippet
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+        author_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Author Name
+        published_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Published At
+        likes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Likes
+        saves:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Saves
+        comments:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Comments
+        shares:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Shares
+        views:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Views
+        followers:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Followers
+        source_provider:
+          type: string
+          title: Source Provider
+        source_rank:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Source Rank
+        indexed_at:
+          type: string
+          format: date-time
+          title: Indexed At
+        fetched_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Fetched At
+        commercial_probability:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: 'null'
+          title: Commercial Probability
+        data_confidence:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Data Confidence
+          default: 0.5
+        rights_status:
+          type: string
+          title: Rights Status
+          default: PUBLIC_INDEX_ONLY
+        score_type:
+          anyOf:
+          - $ref: '#/components/schemas/ScoreType'
+          - type: 'null'
+        hot_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hot Score
+        score_components:
+          additionalProperties:
+            type: number
+          type: object
+          title: Score Components
+        duplicate_cluster:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Duplicate Cluster
+      type: object
+      required:
+      - id
+      - url
+      - title
+      - source_provider
+      title: HotNoteCandidate
+    HotNotesReport:
+      properties:
+        query:
+          type: string
+          title: Query
+        time_range:
+          type: string
+          title: Time Range
+        score_type:
+          $ref: '#/components/schemas/ScoreType'
+        notes:
+          items:
+            $ref: '#/components/schemas/HotNoteCandidate'
+          type: array
+          title: Notes
+        trends:
+          items:
+            $ref: '#/components/schemas/TrendTopic'
+          type: array
+          title: Trends
+        mechanisms:
+          items:
+            $ref: '#/components/schemas/ContentMechanism'
+          type: array
+          title: Mechanisms
+        content_gaps:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Content Gaps
+        hot_insights:
+          additionalProperties: true
+          type: object
+          title: Hot Insights
+        topic_suggestions:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Topic Suggestions
+        coverage_warning:
+          type: string
+          title: Coverage Warning
+        search_quality:
+          additionalProperties: true
+          type: object
+          title: Search Quality
+        generated_at:
+          type: string
+          format: date-time
+          title: Generated At
+      type: object
+      required:
+      - query
+      - time_range
+      - score_type
+      - notes
+      - coverage_warning
+      title: HotNotesReport
+    HotNotesRequest:
+      properties:
+        query:
+          type: string
+          maxLength: 200
+          minLength: 1
+          title: Query
+        time_range:
+          type: string
+          title: Time Range
+          default: 7d
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 30
+        language:
+          type: string
+          title: Language
+          default: zh-hans
+        country:
+          type: string
+          title: Country
+          default: CN
+        sources:
+          items:
+            type: string
+          type: array
+          title: Sources
+        authorized_import_asset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Authorized Import Asset Id
+        web_results:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Web Results
+      type: object
+      required:
+      - query
+      title: HotNotesRequest
+    HotToNoteRequest:
+      properties:
+        query:
+          type: string
+          maxLength: 200
+          minLength: 1
+          title: Query
+        suggestion_index:
+          type: integer
+          maximum: 20.0
+          minimum: 0.0
+          title: Suggestion Index
+          default: 0
+        suggestion_topic:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          title: Suggestion Topic
+        dry_run:
+          type: boolean
+          title: Dry Run
+          default: false
+        use_account_health:
+          type: boolean
+          title: Use Account Health
+          default: false
+        format:
+          type: string
+          pattern: ^(graphic|video)$
+          title: Format
+          default: graphic
+        video_duration_seconds:
+          anyOf:
+          - type: integer
+            maximum: 60.0
+            minimum: 15.0
+          - type: 'null'
+          title: Video Duration Seconds
+        note_style:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note Style
+        narrative_framework:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Narrative Framework
+        target_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Audience
+        commercial_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Commercial Status
+        account_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Account Id
+        brand_voice:
+          additionalProperties: true
+          type: object
+          title: Brand Voice
+        product:
+          additionalProperties: true
+          type: object
+          title: Product
+        constraints:
+          items:
+            type: string
+          type: array
+          title: Constraints
+        provider:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider
+        providers:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Providers
+        web_results:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Web Results
+      type: object
+      required:
+      - query
+      title: HotToNoteRequest
+      description: 热门→选题→一键生成。
+    Job:
+      properties:
+        id:
+          type: string
+          title: Id
+        status:
+          $ref: '#/components/schemas/JobStatus'
+          default: PENDING
+        task_type:
+          type: string
+          title: Task Type
+        tenant_id:
+          type: string
+          title: Tenant Id
+          default: local
+        created_by:
+          type: string
+          title: Created By
+          default: local-cli
+        trace_id:
+          type: string
+          title: Trace Id
+        input:
+          additionalProperties: true
+          type: object
+          title: Input
+        result:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Result
+        error:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Error
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - task_type
+      title: Job
+    JobStatus:
+      type: string
+      enum:
+      - PENDING
+      - RUNNING
+      - WAITING_FOR_TOOL
+      - WAITING_FOR_HUMAN
+      - COMPLETED
+      - PARTIAL
+      - FAILED
+      - CANCELLED
+      title: JobStatus
+    LoginStatus:
+      type: string
+      enum:
+      - NOT_CONFIGURED
+      - LOGIN_REQUIRED
+      - QR_CODE_READY
+      - WAITING_FOR_SCAN
+      - WAITING_FOR_CONFIRMATION
+      - AUTHENTICATED
+      - SESSION_EXPIRED
+      - RISK_VERIFICATION_REQUIRED
+      - ACCOUNT_MISMATCH
+      - LOCKED
+      - LOGGED_OUT
+      title: LoginStatus
+    PublishApproval:
+      properties:
+        id:
+          type: string
+          title: Id
+        draft_id:
+          type: string
+          title: Draft Id
+        account_id:
+          type: string
+          title: Account Id
+        tenant_id:
+          type: string
+          title: Tenant Id
+          default: local
+        approved_by:
+          type: string
+          title: Approved By
+          default: local-cli
+        approver_auth_level:
+          type: integer
+          title: Approver Auth Level
+          default: 1
+        expected_content_hash:
+          type: string
+          title: Expected Content Hash
+        mode:
+          $ref: '#/components/schemas/PublishMode'
+          default: REQUIRE_CONFIRMATION
+        approval_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Approval Token
+        approval_token_hash:
+          type: string
+          title: Approval Token Hash
+        approved_at:
+          type: string
+          format: date-time
+          title: Approved At
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+        used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Used At
+        scheduled_for:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Scheduled For
+        ai_disclosure_confirmed:
+          type: boolean
+          title: Ai Disclosure Confirmed
+          default: false
+        commercial_disclosure_confirmed:
+          type: boolean
+          title: Commercial Disclosure Confirmed
+          default: false
+        account_identity_confirmed:
+          type: boolean
+          title: Account Identity Confirmed
+          default: false
+        enterprise_approval_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Enterprise Approval Id
+      type: object
+      required:
+      - id
+      - draft_id
+      - account_id
+      - expected_content_hash
+      - approval_token_hash
+      - expires_at
+      title: PublishApproval
+    PublishDraft:
+      properties:
+        id:
+          type: string
+          title: Id
+        account_id:
+          type: string
+          title: Account Id
+        tenant_id:
+          type: string
+          title: Tenant Id
+          default: local
+        created_by:
+          type: string
+          title: Created By
+          default: local-cli
+        package:
+          $ref: '#/components/schemas/DeliveryPackage'
+        content_hash:
+          type: string
+          title: Content Hash
+        mode:
+          $ref: '#/components/schemas/PublishMode'
+          default: REQUIRE_CONFIRMATION
+        preview_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Preview Url
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - account_id
+      - package
+      - content_hash
+      title: PublishDraft
+    PublishMode:
+      type: string
+      enum:
+      - DRAFT_ONLY
+      - REQUIRE_CONFIRMATION
+      - SCHEDULED_AUTO_PUBLISH
+      - FULLY_AUTOMATED
+      title: PublishMode
+    PublishRequest:
+      properties:
+        approval_token:
+          type: string
+          maxLength: 512
+          minLength: 32
+          title: Approval Token
+      type: object
+      required:
+      - approval_token
+      title: PublishRequest
+    PublishResult:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        draft_id:
+          type: string
+          title: Draft Id
+        account_id:
+          type: string
+          title: Account Id
+        status:
+          type: string
+          title: Status
+        note_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note Url
+        note_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note Id
+        published_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Published At
+        failure_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Failure Code
+        failure_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Failure Message
+        audit:
+          additionalProperties: true
+          type: object
+          title: Audit
+      type: object
+      required:
+      - job_id
+      - draft_id
+      - account_id
+      - status
+      title: PublishResult
+    PublishSchedule:
+      properties:
+        id:
+          type: string
+          title: Id
+        draft_id:
+          type: string
+          title: Draft Id
+        account_id:
+          type: string
+          title: Account Id
+        tenant_id:
+          type: string
+          title: Tenant Id
+          default: local
+        approval_id:
+          type: string
+          title: Approval Id
+        scheduled_at:
+          type: string
+          format: date-time
+          title: Scheduled At
+        status:
+          type: string
+          title: Status
+          default: SCHEDULED
+        failure_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Failure Message
+      type: object
+      required:
+      - id
+      - draft_id
+      - account_id
+      - approval_id
+      - scheduled_at
+      title: PublishSchedule
+    PublishedMetrics:
+      properties:
+        note_id:
+          type: string
+          title: Note Id
+        account_id:
+          type: string
+          title: Account Id
+        tenant_id:
+          type: string
+          title: Tenant Id
+          default: local
+        snapshot_at:
+          type: string
+          format: date-time
+          title: Snapshot At
+        views:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Views
+        likes:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Likes
+        saves:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Saves
+        comments:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Comments
+        shares:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Shares
+        follows:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Follows
+        profile_visits:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Profile Visits
+        search_views:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Search Views
+        recommendation_views:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Recommendation Views
+        source:
+          type: string
+          title: Source
+          default: AUTHORIZED_IMPORT
+        content_features:
+          additionalProperties:
+            anyOf:
+            - type: number
+            - type: string
+            - type: boolean
+          type: object
+          title: Content Features
+      type: object
+      required:
+      - note_id
+      - account_id
+      title: PublishedMetrics
+    ReplyDraftRequest:
+      properties:
+        original_comment:
+          type: string
+          maxLength: 2000
+          minLength: 1
+          title: Original Comment
+        note_context:
+          type: string
+          maxLength: 2000
+          title: Note Context
+          default: ''
+        tone:
+          type: string
+          maxLength: 32
+          title: Tone
+          default: helpful
+        comment_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Id
+        note_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Note Id
+        max_candidates:
+          type: integer
+          maximum: 5.0
+          minimum: 1.0
+          title: Max Candidates
+          default: 3
+      type: object
+      required:
+      - original_comment
+      title: ReplyDraftRequest
+      description: 授权评论回复草稿：仅生成，永不自动提交。
+    RewriteRequest:
+      properties:
+        body:
+          type: string
+          title: Body
+        title:
+          type: string
+          title: Title
+          default: ''
+        commercial_status:
+          type: string
+          title: Commercial Status
+          default: NON_COMMERCIAL
+        constraints:
+          items:
+            type: string
+          type: array
+          maxItems: 20
+          title: Constraints
+        references:
+          items:
+            type: string
+          type: array
+          maxItems: 200
+          title: References
+      type: object
+      required:
+      - body
+      title: RewriteRequest
+    ScheduleRequest:
+      properties:
+        approval_token:
+          type: string
+          maxLength: 512
+          minLength: 32
+          title: Approval Token
+        scheduled_at:
+          type: string
+          format: date-time
+          title: Scheduled At
+      type: object
+      required:
+      - approval_token
+      - scheduled_at
+      title: ScheduleRequest
+    ScoreType:
+      type: string
+      enum:
+      - METRIC_HOT_SCORE
+      - PUBLIC_INDEX_HOT_SCORE
+      title: ScoreType
+    SeriesRequest:
+      properties:
+        account_id:
+          type: string
+          title: Account Id
+        title:
+          type: string
+          title: Title
+        topic:
+          type: string
+          title: Topic
+        audience:
+          type: string
+          title: Audience
+        episode_count:
+          type: integer
+          maximum: 30.0
+          minimum: 2.0
+          title: Episode Count
+          default: 6
+      type: object
+      required:
+      - account_id
+      - title
+      - topic
+      - audience
+      title: SeriesRequest
+    TitleCandidate:
+      properties:
+        id:
+          type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        mechanism:
+          type: string
+          title: Mechanism
+        target_audience:
+          type: string
+          title: Target Audience
+          default: ''
+        primary_keyword:
+          type: string
+          title: Primary Keyword
+          default: ''
+        scores:
+          additionalProperties:
+            type: number
+          type: object
+          title: Scores
+        risks:
+          items:
+            type: string
+          type: array
+          title: Risks
+      type: object
+      required:
+      - id
+      - title
+      - mechanism
+      title: TitleCandidate
+    TrendClass:
+      type: string
+      enum:
+      - EMERGING
+      - RISING
+      - STABLE
+      - SEASONAL
+      - SATURATED
+      - DECLINING
+      - ANOMALOUS
+      title: TrendClass
+    TrendTopic:
+      properties:
+        topic:
+          type: string
+          title: Topic
+        trend_class:
+          $ref: '#/components/schemas/TrendClass'
+        score:
+          type: number
+          title: Score
+        growth_rate:
+          type: number
+          title: Growth Rate
+          default: 0.0
+        acceleration:
+          type: number
+          title: Acceleration
+          default: 0.0
+        cross_source_support:
+          type: number
+          title: Cross Source Support
+          default: 0.0
+        saturation:
+          type: number
+          title: Saturation
+          default: 0.0
+        change_point_detected:
+          type: boolean
+          title: Change Point Detected
+          default: false
+        change_point_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Change Point At
+        momentum:
+          type: number
+          title: Momentum
+          default: 0.0
+        content_gap_score:
+          type: number
+          title: Content Gap Score
+          default: 0.0
+        evidence_note_ids:
+          items:
+            type: string
+          type: array
+          title: Evidence Note Ids
+      type: object
+      required:
+      - topic
+      - trend_class
+      - score
+      title: TrendTopic
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    VideoScene:
+      properties:
+        start:
+          type: number
+          title: Start
+        end:
+          type: number
+          title: End
+        visual:
+          type: string
+          title: Visual
+        narration:
+          type: string
+          title: Narration
+        subtitle:
+          type: string
+          title: Subtitle
+        b_roll:
+          type: string
+          title: B Roll
+          default: ''
+        product_visibility:
+          type: string
+          title: Product Visibility
+          default: none
+      type: object
+      required:
+      - start
+      - end
+      - visual
+      - narration
+      - subtitle
+      title: VideoScene
+    VideoScript:
+      properties:
+        duration_seconds:
+          type: integer
+          title: Duration Seconds
+        hook_0_3s:
+          type: string
+          title: Hook 0 3S
+        scenes:
+          items:
+            $ref: '#/components/schemas/VideoScene'
+          type: array
+          title: Scenes
+        ending:
+          type: string
+          title: Ending
+        cover_copy:
+          type: string
+          title: Cover Copy
+        post_caption:
+          type: string
+          title: Post Caption
+      type: object
+      required:
+      - duration_seconds
+      - hook_0_3s
+      - scenes
+      - ending
+      - cover_copy
+      - post_caption
+      title: VideoScript
+    xhs_skill__api__routes__accounts__DiagnoseRequest:
+      properties:
+        analytics:
+          anyOf:
+          - $ref: '#/components/schemas/AccountAnalytics'
+          - type: 'null'
+        base_topic:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          title: Base Topic
+      type: object
+      title: DiagnoseRequest
+    xhs_skill__api__routes__content__DiagnoseRequest:
+      properties:
+        title:
+          type: string
+          title: Title
+          default: ''
+        body:
+          type: string
+          title: Body
+        references:
+          items:
+            type: string
+          type: array
+          maxItems: 200
+          title: References
+        candidate_image_asset_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 20
+          title: Candidate Image Asset Ids
+        reference_image_asset_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          title: Reference Image Asset Ids
+      type: object
+      required:
+      - body
+      title: DiagnoseRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

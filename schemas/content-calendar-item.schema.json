@@ -1,0 +1,82 @@
+{
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "scheduled_at": {
+      "format": "date-time",
+      "title": "Scheduled At",
+      "type": "string"
+    },
+    "topic": {
+      "title": "Topic",
+      "type": "string"
+    },
+    "content_pillar": {
+      "title": "Content Pillar",
+      "type": "string"
+    },
+    "objective": {
+      "title": "Objective",
+      "type": "string"
+    },
+    "format": {
+      "default": "graphic",
+      "title": "Format",
+      "type": "string"
+    },
+    "status": {
+      "default": "PLANNED",
+      "title": "Status",
+      "type": "string"
+    },
+    "series_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Series Id"
+    },
+    "experiment_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Experiment Id"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    }
+  },
+  "required": [
+    "account_id",
+    "scheduled_at",
+    "topic",
+    "content_pillar",
+    "objective"
+  ],
+  "title": "ContentCalendarItem",
+  "type": "object"
+}

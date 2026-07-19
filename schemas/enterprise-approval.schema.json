@@ -1,0 +1,152 @@
+{
+  "$defs": {
+    "ApprovalDecision": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "approver_id": {
+          "title": "Approver Id",
+          "type": "string"
+        },
+        "decision": {
+          "title": "Decision",
+          "type": "string"
+        },
+        "comment": {
+          "default": "",
+          "title": "Comment",
+          "type": "string"
+        },
+        "auth_level": {
+          "default": 2,
+          "maximum": 3,
+          "minimum": 1,
+          "title": "Auth Level",
+          "type": "integer"
+        },
+        "amr": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Amr",
+          "type": "array"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approver_id",
+        "decision"
+      ],
+      "title": "ApprovalDecision",
+      "type": "object"
+    },
+    "ApprovalState": {
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "REJECTED",
+        "EXPIRED",
+        "CANCELLED"
+      ],
+      "title": "ApprovalState",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "resource_type": {
+      "title": "Resource Type",
+      "type": "string"
+    },
+    "resource_id": {
+      "title": "Resource Id",
+      "type": "string"
+    },
+    "requested_by": {
+      "title": "Requested By",
+      "type": "string"
+    },
+    "required_quorum": {
+      "default": 2,
+      "maximum": 10,
+      "minimum": 1,
+      "title": "Required Quorum",
+      "type": "integer"
+    },
+    "separation_of_duties": {
+      "default": true,
+      "title": "Separation Of Duties",
+      "type": "boolean"
+    },
+    "require_phishing_resistant_mfa": {
+      "default": true,
+      "title": "Require Phishing Resistant Mfa",
+      "type": "boolean"
+    },
+    "state": {
+      "$ref": "#/$defs/ApprovalState",
+      "default": "PENDING"
+    },
+    "content_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Content Hash"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "title": "Expires At",
+      "type": "string"
+    },
+    "decisions": {
+      "items": {
+        "$ref": "#/$defs/ApprovalDecision"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "resource_type",
+    "resource_id",
+    "requested_by",
+    "expires_at"
+  ],
+  "title": "EnterpriseApproval",
+  "type": "object"
+}

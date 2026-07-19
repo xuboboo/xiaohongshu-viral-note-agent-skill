@@ -1,0 +1,17 @@
+{
+  "notes": [
+    {
+      "id": "authorized-1",
+      "url": "authorized://note-1",
+      "title": "通勤防晒实测：三种场景怎么选",
+      "body": "品牌已授权导出的笔记正文摘要。",
+      "published_at": "2026-07-16T10:00:00+08:00",
+      "likes": 1200,
+      "saves": 2100,
+      "comments": 180,
+      "shares": 260,
+      "followers": 25000,
+      "rights_status": "AUTHORIZED"
+    }
+  ]
+}

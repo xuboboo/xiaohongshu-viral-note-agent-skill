@@ -1,0 +1,547 @@
+{
+  "$defs": {
+    "ContentMechanism": {
+      "properties": {
+        "audience": {
+          "default": "未明确",
+          "title": "Audience",
+          "type": "string"
+        },
+        "audience_stage": {
+          "default": "问题认知",
+          "title": "Audience Stage",
+          "type": "string"
+        },
+        "user_problem": {
+          "default": "",
+          "title": "User Problem",
+          "type": "string"
+        },
+        "topic_angle": {
+          "default": "",
+          "title": "Topic Angle",
+          "type": "string"
+        },
+        "content_promise": {
+          "default": "",
+          "title": "Content Promise",
+          "type": "string"
+        },
+        "title_mechanism": {
+          "default": "",
+          "title": "Title Mechanism",
+          "type": "string"
+        },
+        "cover_mechanism": {
+          "default": "",
+          "title": "Cover Mechanism",
+          "type": "string"
+        },
+        "opening_mechanism": {
+          "default": "",
+          "title": "Opening Mechanism",
+          "type": "string"
+        },
+        "body_structure": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Body Structure",
+          "type": "array"
+        },
+        "trust_signals": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Trust Signals",
+          "type": "array"
+        },
+        "emotional_strategy": {
+          "default": "克制",
+          "title": "Emotional Strategy",
+          "type": "string"
+        },
+        "search_intent": {
+          "default": "",
+          "title": "Search Intent",
+          "type": "string"
+        },
+        "product_exposure_position": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Product Exposure Position"
+        },
+        "cta_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cta Type"
+        },
+        "reusable_principles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reusable Principles",
+          "type": "array"
+        },
+        "prohibited_reuse": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prohibited Reuse",
+          "type": "array"
+        }
+      },
+      "title": "ContentMechanism",
+      "type": "object"
+    },
+    "HotNoteCandidate": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "canonical_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Canonical Url"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "snippet": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Snippet"
+        },
+        "body": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Body"
+        },
+        "author_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Author Name"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "likes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Likes"
+        },
+        "saves": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Saves"
+        },
+        "comments": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Comments"
+        },
+        "shares": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shares"
+        },
+        "views": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Views"
+        },
+        "followers": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Followers"
+        },
+        "source_provider": {
+          "title": "Source Provider",
+          "type": "string"
+        },
+        "source_rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Rank"
+        },
+        "indexed_at": {
+          "format": "date-time",
+          "title": "Indexed At",
+          "type": "string"
+        },
+        "fetched_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fetched At"
+        },
+        "commercial_probability": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Commercial Probability"
+        },
+        "data_confidence": {
+          "default": 0.5,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Data Confidence",
+          "type": "number"
+        },
+        "rights_status": {
+          "default": "PUBLIC_INDEX_ONLY",
+          "title": "Rights Status",
+          "type": "string"
+        },
+        "score_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScoreType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "hot_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hot Score"
+        },
+        "score_components": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Score Components",
+          "type": "object"
+        },
+        "duplicate_cluster": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duplicate Cluster"
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "title",
+        "source_provider"
+      ],
+      "title": "HotNoteCandidate",
+      "type": "object"
+    },
+    "ScoreType": {
+      "enum": [
+        "METRIC_HOT_SCORE",
+        "PUBLIC_INDEX_HOT_SCORE"
+      ],
+      "title": "ScoreType",
+      "type": "string"
+    },
+    "TrendClass": {
+      "enum": [
+        "EMERGING",
+        "RISING",
+        "STABLE",
+        "SEASONAL",
+        "SATURATED",
+        "DECLINING",
+        "ANOMALOUS"
+      ],
+      "title": "TrendClass",
+      "type": "string"
+    },
+    "TrendTopic": {
+      "properties": {
+        "topic": {
+          "title": "Topic",
+          "type": "string"
+        },
+        "trend_class": {
+          "$ref": "#/$defs/TrendClass"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "growth_rate": {
+          "default": 0.0,
+          "title": "Growth Rate",
+          "type": "number"
+        },
+        "acceleration": {
+          "default": 0.0,
+          "title": "Acceleration",
+          "type": "number"
+        },
+        "cross_source_support": {
+          "default": 0.0,
+          "title": "Cross Source Support",
+          "type": "number"
+        },
+        "saturation": {
+          "default": 0.0,
+          "title": "Saturation",
+          "type": "number"
+        },
+        "change_point_detected": {
+          "default": false,
+          "title": "Change Point Detected",
+          "type": "boolean"
+        },
+        "change_point_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Change Point At"
+        },
+        "momentum": {
+          "default": 0.0,
+          "title": "Momentum",
+          "type": "number"
+        },
+        "content_gap_score": {
+          "default": 0.0,
+          "title": "Content Gap Score",
+          "type": "number"
+        },
+        "evidence_note_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Note Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "topic",
+        "trend_class",
+        "score"
+      ],
+      "title": "TrendTopic",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "query": {
+      "title": "Query",
+      "type": "string"
+    },
+    "time_range": {
+      "title": "Time Range",
+      "type": "string"
+    },
+    "score_type": {
+      "$ref": "#/$defs/ScoreType"
+    },
+    "notes": {
+      "items": {
+        "$ref": "#/$defs/HotNoteCandidate"
+      },
+      "title": "Notes",
+      "type": "array"
+    },
+    "trends": {
+      "items": {
+        "$ref": "#/$defs/TrendTopic"
+      },
+      "title": "Trends",
+      "type": "array"
+    },
+    "mechanisms": {
+      "items": {
+        "$ref": "#/$defs/ContentMechanism"
+      },
+      "title": "Mechanisms",
+      "type": "array"
+    },
+    "content_gaps": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Content Gaps",
+      "type": "array"
+    },
+    "hot_insights": {
+      "additionalProperties": true,
+      "title": "Hot Insights",
+      "type": "object"
+    },
+    "topic_suggestions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Topic Suggestions",
+      "type": "array"
+    },
+    "coverage_warning": {
+      "title": "Coverage Warning",
+      "type": "string"
+    },
+    "search_quality": {
+      "additionalProperties": true,
+      "title": "Search Quality",
+      "type": "object"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query",
+    "time_range",
+    "score_type",
+    "notes",
+    "coverage_warning"
+  ],
+  "title": "HotNotesReport",
+  "type": "object"
+}

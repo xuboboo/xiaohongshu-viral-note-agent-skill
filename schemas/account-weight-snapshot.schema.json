@@ -1,0 +1,47 @@
+{
+  "properties": {
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "score": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Score"
+    },
+    "confidence": {
+      "title": "Confidence",
+      "type": "string"
+    },
+    "data_completeness": {
+      "title": "Data Completeness",
+      "type": "number"
+    },
+    "dimensions": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Dimensions",
+      "type": "object"
+    },
+    "recorded_at": {
+      "format": "date-time",
+      "title": "Recorded At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_id",
+    "confidence",
+    "data_completeness"
+  ],
+  "title": "AccountWeightSnapshot",
+  "type": "object"
+}

@@ -1,0 +1,53 @@
+{
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "promise": {
+      "title": "Promise",
+      "type": "string"
+    },
+    "episodes": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Episodes",
+      "type": "array"
+    },
+    "cadence_days": {
+      "default": 3,
+      "maximum": 30,
+      "minimum": 1,
+      "title": "Cadence Days",
+      "type": "integer"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_id",
+    "title",
+    "promise",
+    "episodes"
+  ],
+  "title": "SeriesPlan",
+  "type": "object"
+}

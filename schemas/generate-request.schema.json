@@ -1,0 +1,247 @@
+{
+  "$defs": {
+    "CommercialStatus": {
+      "enum": [
+        "NON_COMMERCIAL",
+        "ORGANIC_MENTION",
+        "CREATOR_SEEDING",
+        "COMMERCIAL_COLLABORATION",
+        "BRAND_OFFICIAL",
+        "STORE_CONVERSION",
+        "ECOMMERCE_CONVERSION",
+        "LEAD_GENERATION",
+        "LIVE_PROMOTION"
+      ],
+      "title": "CommercialStatus",
+      "type": "string"
+    },
+    "ContentFormat": {
+      "enum": [
+        "graphic",
+        "video"
+      ],
+      "title": "ContentFormat",
+      "type": "string"
+    },
+    "DistributionMode": {
+      "enum": [
+        "search",
+        "recommendation",
+        "hybrid"
+      ],
+      "title": "DistributionMode",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "topic": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Topic",
+      "type": "string"
+    },
+    "objective": {
+      "default": "search_growth",
+      "title": "Objective",
+      "type": "string"
+    },
+    "format": {
+      "$ref": "#/$defs/ContentFormat",
+      "default": "graphic"
+    },
+    "distribution_mode": {
+      "$ref": "#/$defs/DistributionMode",
+      "default": "hybrid"
+    },
+    "commercial_status": {
+      "$ref": "#/$defs/CommercialStatus",
+      "default": "NON_COMMERCIAL"
+    },
+    "account_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Account Id"
+    },
+    "target_audience": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Audience"
+    },
+    "product": {
+      "additionalProperties": true,
+      "title": "Product",
+      "type": "object"
+    },
+    "evidence": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "brand_voice": {
+      "additionalProperties": true,
+      "title": "Brand Voice",
+      "type": "object"
+    },
+    "constraints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Constraints",
+      "type": "array"
+    },
+    "research_current_trends": {
+      "default": true,
+      "title": "Research Current Trends",
+      "type": "boolean"
+    },
+    "web_results": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Web Results",
+      "type": "array"
+    },
+    "candidate_count": {
+      "default": 6,
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Candidate Count",
+      "type": "integer"
+    },
+    "provider": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Provider"
+    },
+    "model": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model"
+    },
+    "suggested_topic": {
+      "anyOf": [
+        {
+          "maxLength": 300,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Suggested Topic"
+    },
+    "topic_angle": {
+      "anyOf": [
+        {
+          "maxLength": 120,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Topic Angle"
+    },
+    "topic_reason": {
+      "anyOf": [
+        {
+          "maxLength": 400,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Topic Reason"
+    },
+    "note_style": {
+      "anyOf": [
+        {
+          "maxLength": 32,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "review|seeding|avoid_pitfall|checklist|tutorial|store_visit|comparison|decision",
+      "title": "Note Style"
+    },
+    "narrative_framework": {
+      "anyOf": [
+        {
+          "maxLength": 16,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "pas|aida|bab|quest|four_p|scqa|auto",
+      "title": "Narrative Framework"
+    },
+    "variant_index": {
+      "default": 0,
+      "maximum": 20,
+      "minimum": 0,
+      "title": "Variant Index",
+      "type": "integer"
+    },
+    "video_duration_seconds": {
+      "anyOf": [
+        {
+          "maximum": 60,
+          "minimum": 15,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Video Duration Seconds"
+    }
+  },
+  "required": [
+    "topic"
+  ],
+  "title": "GenerateRequest",
+  "type": "object"
+}

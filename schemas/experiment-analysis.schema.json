@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "VariantAnalysis": {
+      "properties": {
+        "variant_id": {
+          "title": "Variant Id",
+          "type": "string"
+        },
+        "sample_size": {
+          "title": "Sample Size",
+          "type": "integer"
+        },
+        "mean": {
+          "title": "Mean",
+          "type": "number"
+        },
+        "standard_error": {
+          "title": "Standard Error",
+          "type": "number"
+        },
+        "confidence_low": {
+          "title": "Confidence Low",
+          "type": "number"
+        },
+        "confidence_high": {
+          "title": "Confidence High",
+          "type": "number"
+        },
+        "lift_vs_control": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lift Vs Control"
+        },
+        "probability_best": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Probability Best"
+        }
+      },
+      "required": [
+        "variant_id",
+        "sample_size",
+        "mean",
+        "standard_error",
+        "confidence_low",
+        "confidence_high"
+      ],
+      "title": "VariantAnalysis",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "experiment_id": {
+      "title": "Experiment Id",
+      "type": "string"
+    },
+    "primary_metric": {
+      "title": "Primary Metric",
+      "type": "string"
+    },
+    "control_variant_id": {
+      "title": "Control Variant Id",
+      "type": "string"
+    },
+    "variants": {
+      "items": {
+        "$ref": "#/$defs/VariantAnalysis"
+      },
+      "title": "Variants",
+      "type": "array"
+    },
+    "recommended_variant_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recommended Variant Id"
+    },
+    "decision": {
+      "title": "Decision",
+      "type": "string"
+    },
+    "caveat": {
+      "default": "置信区间使用正态近似；样本不足、分配偏差或多重检验会降低结论可靠性。",
+      "title": "Caveat",
+      "type": "string"
+    }
+  },
+  "required": [
+    "experiment_id",
+    "primary_metric",
+    "control_variant_id",
+    "variants",
+    "decision"
+  ],
+  "title": "ExperimentAnalysis",
+  "type": "object"
+}

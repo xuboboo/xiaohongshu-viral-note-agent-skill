@@ -1,0 +1,269 @@
+{
+  "$defs": {
+    "ScoreType": {
+      "enum": [
+        "METRIC_HOT_SCORE",
+        "PUBLIC_INDEX_HOT_SCORE"
+      ],
+      "title": "ScoreType",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "url": {
+      "title": "Url",
+      "type": "string"
+    },
+    "canonical_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Canonical Url"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "snippet": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Snippet"
+    },
+    "body": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Body"
+    },
+    "author_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Author Name"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "likes": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Likes"
+    },
+    "saves": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Saves"
+    },
+    "comments": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Comments"
+    },
+    "shares": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Shares"
+    },
+    "views": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Views"
+    },
+    "followers": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Followers"
+    },
+    "source_provider": {
+      "title": "Source Provider",
+      "type": "string"
+    },
+    "source_rank": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Rank"
+    },
+    "indexed_at": {
+      "format": "date-time",
+      "title": "Indexed At",
+      "type": "string"
+    },
+    "fetched_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fetched At"
+    },
+    "commercial_probability": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Commercial Probability"
+    },
+    "data_confidence": {
+      "default": 0.5,
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Data Confidence",
+      "type": "number"
+    },
+    "rights_status": {
+      "default": "PUBLIC_INDEX_ONLY",
+      "title": "Rights Status",
+      "type": "string"
+    },
+    "score_type": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScoreType"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "hot_score": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hot Score"
+    },
+    "score_components": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Score Components",
+      "type": "object"
+    },
+    "duplicate_cluster": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Duplicate Cluster"
+    }
+  },
+  "required": [
+    "id",
+    "url",
+    "title",
+    "source_provider"
+  ],
+  "title": "HotNoteCandidate",
+  "type": "object"
+}

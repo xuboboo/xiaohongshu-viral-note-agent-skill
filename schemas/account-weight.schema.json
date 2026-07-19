@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "DimensionScore": {
+      "properties": {
+        "score": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "weight": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Weight",
+          "type": "number"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "score",
+        "weight"
+      ],
+      "title": "DimensionScore",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "score_type": {
+      "default": "ESTIMATED_ACCOUNT_WEIGHT",
+      "title": "Score Type",
+      "type": "string"
+    },
+    "overall_score": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Overall Score"
+    },
+    "confidence": {
+      "title": "Confidence",
+      "type": "string"
+    },
+    "data_completeness": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Data Completeness",
+      "type": "number"
+    },
+    "dimensions": {
+      "additionalProperties": {
+        "$ref": "#/$defs/DimensionScore"
+      },
+      "title": "Dimensions",
+      "type": "object"
+    },
+    "strengths": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Strengths",
+      "type": "array"
+    },
+    "risks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Risks",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    },
+    "missing_data": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Data",
+      "type": "array"
+    },
+    "status": {
+      "default": "OK",
+      "title": "Status",
+      "type": "string"
+    },
+    "disclaimer": {
+      "default": "该分数为系统根据授权数据计算的账号健康与内容分发能力估算，不是小红书官方内部账号权重。",
+      "title": "Disclaimer",
+      "type": "string"
+    }
+  },
+  "required": [
+    "confidence",
+    "data_completeness"
+  ],
+  "title": "AccountWeightReport",
+  "type": "object"
+}

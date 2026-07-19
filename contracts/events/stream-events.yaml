@@ -1,0 +1,27 @@
+version: 1
+transport: SSE
+events:
+  - job.accepted
+  - job.started
+  - research.query_started
+  - research.result_found
+  - research.completed
+  - rank.updated
+  - generation.delta
+  - generation.candidate_completed
+  - verifier.started
+  - verifier.result
+  - auth.qr_code_ready
+  - auth.authenticated
+  - auth.risk_verification_required
+  - publish.preview_ready
+  - publish.awaiting_confirmation
+  - publish.submitted
+  - publish.verified
+  - artifact.ready
+  - job.completed
+  - job.failed
+  - heartbeat
+replay:
+  header: Last-Event-ID
+  backend: Redis Streams or bounded local replay

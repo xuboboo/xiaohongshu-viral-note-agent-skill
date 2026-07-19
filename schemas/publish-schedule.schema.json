@@ -1,0 +1,56 @@
+{
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "draft_id": {
+      "title": "Draft Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "approval_id": {
+      "title": "Approval Id",
+      "type": "string"
+    },
+    "scheduled_at": {
+      "format": "date-time",
+      "title": "Scheduled At",
+      "type": "string"
+    },
+    "status": {
+      "default": "SCHEDULED",
+      "title": "Status",
+      "type": "string"
+    },
+    "failure_message": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Message"
+    }
+  },
+  "required": [
+    "id",
+    "draft_id",
+    "account_id",
+    "approval_id",
+    "scheduled_at"
+  ],
+  "title": "PublishSchedule",
+  "type": "object"
+}

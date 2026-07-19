@@ -1,0 +1,62 @@
+# Optional additional providers. Environment variable expansion is supported for ${NAME}.
+# All model names are examples/placeholders; configure currently available model identifiers.
+providers:
+  openrouter:
+    type: openai_compatible
+    base_url: https://openrouter.ai/api/v1
+    api_key: ${OPENROUTER_API_KEY}
+    default_model: ${OPENROUTER_DEFAULT_MODEL}
+  mistral:
+    type: openai_compatible
+    base_url: https://api.mistral.ai/v1
+    api_key: ${MISTRAL_API_KEY}
+    default_model: ${MISTRAL_DEFAULT_MODEL}
+  groq:
+    type: openai_compatible
+    base_url: https://api.groq.com/openai/v1
+    api_key: ${GROQ_API_KEY}
+    default_model: ${GROQ_DEFAULT_MODEL}
+  xai:
+    type: openai_compatible
+    base_url: https://api.x.ai/v1
+    api_key: ${XAI_API_KEY}
+    default_model: ${XAI_DEFAULT_MODEL}
+  cohere:
+    type: openai_compatible
+    base_url: ${COHERE_OPENAI_BASE_URL}
+    api_key: ${COHERE_API_KEY}
+    default_model: ${COHERE_DEFAULT_MODEL}
+  azure_openai:
+    type: openai_compatible
+    base_url: ${AZURE_OPENAI_DEPLOYMENT_BASE_URL}
+    api_key: ${AZURE_OPENAI_API_KEY}
+    auth_header: api-key
+    auth_scheme: ""
+    query_params:
+      api-version: ${AZURE_OPENAI_API_VERSION}
+    default_model: ${AZURE_OPENAI_DEPLOYMENT}
+  local_vllm:
+    type: openai_compatible
+    base_url: http://127.0.0.1:8000/v1
+    api_key: ${LOCAL_MODEL_API_KEY}
+    default_model: ${LOCAL_MODEL_NAME}
+  custom_anthropic:
+    type: anthropic_compatible
+    base_url: ${CUSTOM_ANTHROPIC_BASE_URL}
+    api_key: ${CUSTOM_ANTHROPIC_API_KEY}
+    default_model: ${CUSTOM_ANTHROPIC_MODEL}
+  bedrock:
+    type: bedrock
+    region: ${AWS_REGION}
+    default_model: ${BEDROCK_DEFAULT_MODEL}
+
+# Capability fields are declarative. Override them for providers that do not support
+# strict schemas, tools, vision or streaming. The runtime must not assume compatibility.
+# Example:
+#   capabilities:
+#     text: true
+#     vision: false
+#     streaming: true
+#     tool_calling: true
+#     structured_output: false
+#     json_mode: true

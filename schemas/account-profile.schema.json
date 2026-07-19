@@ -1,0 +1,84 @@
+{
+  "properties": {
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "primary_audiences": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Primary Audiences",
+      "type": "array"
+    },
+    "content_pillars": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Content Pillars",
+      "type": "array"
+    },
+    "preferred_formats": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Preferred Formats",
+      "type": "array"
+    },
+    "winning_hooks": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Winning Hooks",
+      "type": "array"
+    },
+    "avoid_patterns": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Avoid Patterns",
+      "type": "array"
+    },
+    "tone": {
+      "default": "具体、克制、可执行",
+      "title": "Tone",
+      "type": "string"
+    },
+    "optimal_publish_days": {
+      "items": {
+        "type": "integer"
+      },
+      "title": "Optimal Publish Days",
+      "type": "array"
+    },
+    "optimal_publish_hours": {
+      "items": {
+        "type": "integer"
+      },
+      "title": "Optimal Publish Hours",
+      "type": "array"
+    },
+    "confidence": {
+      "default": 0.0,
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_id"
+  ],
+  "title": "AccountProfile",
+  "type": "object"
+}

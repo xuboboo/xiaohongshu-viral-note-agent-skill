@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "date": {
+      "title": "Date",
+      "type": "string"
+    },
+    "month": {
+      "title": "Month",
+      "type": "string"
+    },
+    "daily_limit_usd": {
+      "title": "Daily Limit Usd",
+      "type": "number"
+    },
+    "monthly_limit_usd": {
+      "title": "Monthly Limit Usd",
+      "type": "number"
+    },
+    "daily_committed_usd": {
+      "title": "Daily Committed Usd",
+      "type": "number"
+    },
+    "monthly_committed_usd": {
+      "title": "Monthly Committed Usd",
+      "type": "number"
+    },
+    "daily_remaining_usd": {
+      "title": "Daily Remaining Usd",
+      "type": "number"
+    },
+    "monthly_remaining_usd": {
+      "title": "Monthly Remaining Usd",
+      "type": "number"
+    },
+    "active_reservations": {
+      "title": "Active Reservations",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "date",
+    "month",
+    "daily_limit_usd",
+    "monthly_limit_usd",
+    "daily_committed_usd",
+    "monthly_committed_usd",
+    "daily_remaining_usd",
+    "monthly_remaining_usd",
+    "active_reservations"
+  ],
+  "title": "BudgetSummary",
+  "type": "object"
+}

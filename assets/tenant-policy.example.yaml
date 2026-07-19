@@ -1,0 +1,18 @@
+id: example-enterprise
+plan: ENTERPRISE
+status: ACTIVE
+policy:
+  allowed_regions: [sg]
+  data_residency_region: sg
+  daily_cost_limit_usd: 100
+  monthly_cost_limit_usd: 2000
+  max_users: 500
+  max_concurrent_jobs: 128
+  publish_approval_quorum: 2
+  require_separation_of_duties: true
+  require_phishing_resistant_mfa_for_publish: true
+  retention_days: 365
+  legal_hold: false
+  allowed_model_providers: [openai, anthropic, gemini]
+  allowed_search_providers: [brave, bing, google]
+  allowed_publish_accounts: []

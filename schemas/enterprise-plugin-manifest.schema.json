@@ -1,0 +1,81 @@
+{
+  "$defs": {
+    "PluginPermission": {
+      "enum": [
+        "network",
+        "model",
+        "search",
+        "storage",
+        "account_read",
+        "publish"
+      ],
+      "title": "PluginPermission",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "name": {
+      "pattern": "^[a-z0-9][a-z0-9-]{1,62}$",
+      "title": "Name",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "entrypoint": {
+      "title": "Entrypoint",
+      "type": "string"
+    },
+    "api_version": {
+      "default": "1",
+      "title": "Api Version",
+      "type": "string"
+    },
+    "publisher": {
+      "title": "Publisher",
+      "type": "string"
+    },
+    "permissions": {
+      "items": {
+        "$ref": "#/$defs/PluginPermission"
+      },
+      "title": "Permissions",
+      "type": "array"
+    },
+    "sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Sha256",
+      "type": "string"
+    },
+    "signature": {
+      "title": "Signature",
+      "type": "string"
+    },
+    "public_key_id": {
+      "title": "Public Key Id",
+      "type": "string"
+    },
+    "minimum_skill_version": {
+      "default": "5.5.1",
+      "title": "Minimum Skill Version",
+      "type": "string"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    }
+  },
+  "required": [
+    "name",
+    "version",
+    "entrypoint",
+    "publisher",
+    "sha256",
+    "signature",
+    "public_key_id"
+  ],
+  "title": "PluginManifest",
+  "type": "object"
+}

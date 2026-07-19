@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xiaohongshu-viral-note-agent-skill"
+version = "5.14.5"
+description = "Production-grade Xiaohongshu hot-note research, generation, account analytics, authorized login and controlled publishing Agent Skill."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{name = "Skill Engineering Team"}]
+dependencies = [
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.6,<3",
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.32,<1",
+  "typer>=0.15,<1",
+  "httpx[http2]>=0.28,<1",
+  "PyYAML>=6,<7",
+  "python-dateutil>=2.9,<3",
+  "cryptography>=44,<47",
+  "python-multipart>=0.0.18,<1",
+  "playwright>=1.49,<2",
+  "prometheus-client>=0.21,<1",
+  "PyJWT[crypto]>=2.10,<3"
+]
+
+[project.optional-dependencies]
+enterprise = ["asyncpg>=0.30,<1", "boto3>=1.35,<2", "redis>=5.2,<7", "hiredis>=3,<4"]
+load = ["locust>=2.32,<3"]
+redis = ["redis>=5.2,<7", "hiredis>=3,<4"]
+postgres = ["asyncpg>=0.30,<1", "pgvector>=0.3,<1"]
+aws = ["boto3>=1.35,<2"]
+ml = ["numpy>=2,<3", "scikit-learn>=1.5,<2", "lightgbm>=4.5,<5"]
+vision = ["Pillow>=11,<13", "pytesseract>=0.3.13,<1"]
+dev = [
+  "pytest>=8,<10",
+  "pytest-asyncio>=0.24,<1",
+  "pytest-cov>=6,<8",
+  "ruff>=0.9,<1",
+  "mypy>=1.14,<2",
+  "jsonschema>=4.23,<5"
+]
+
+[project.scripts]
+xhs-skill = "xhs_skill.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+xhs_skill = ["resources/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501", "B008", "SIM105", "SIM117", "E402"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+warn_unused_ignores = true
+warn_return_any = true
+no_implicit_optional = true
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["xhs_skill"]

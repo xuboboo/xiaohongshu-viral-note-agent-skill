@@ -1,0 +1,133 @@
+{
+  "$defs": {
+    "LoginStatus": {
+      "enum": [
+        "NOT_CONFIGURED",
+        "LOGIN_REQUIRED",
+        "QR_CODE_READY",
+        "WAITING_FOR_SCAN",
+        "WAITING_FOR_CONFIRMATION",
+        "AUTHENTICATED",
+        "SESSION_EXPIRED",
+        "RISK_VERIFICATION_REQUIRED",
+        "ACCOUNT_MISMATCH",
+        "LOCKED",
+        "LOGGED_OUT"
+      ],
+      "title": "LoginStatus",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/LoginStatus"
+    },
+    "qr_image_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Qr Image Path"
+    },
+    "qr_image_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Qr Image Url"
+    },
+    "authenticated_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Authenticated At"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "last_verified_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Verified At"
+    },
+    "account_display_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Account Display Name"
+    },
+    "identity_verified": {
+      "default": false,
+      "title": "Identity Verified",
+      "type": "boolean"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "id",
+    "account_id",
+    "status"
+  ],
+  "title": "AuthSession",
+  "type": "object"
+}

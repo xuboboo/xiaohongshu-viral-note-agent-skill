@@ -1,0 +1,9 @@
+# Optional identity guard for browser login and publishing.
+# Configure the expected visible account name or profile URL per internal account_id.
+accounts: {}
+# Example:
+# accounts:
+#   brand-main:
+#     expected_display_name: "品牌官方账号"
+#     expected_profile_url_contains: "/user/profile/"
+#     strict_identity_match: true

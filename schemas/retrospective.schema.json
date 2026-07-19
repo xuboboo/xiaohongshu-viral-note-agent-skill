@@ -1,0 +1,66 @@
+{
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "note_id": {
+      "title": "Note Id",
+      "type": "string"
+    },
+    "summary": {
+      "title": "Summary",
+      "type": "string"
+    },
+    "strengths": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Strengths",
+      "type": "array"
+    },
+    "weaknesses": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Weaknesses",
+      "type": "array"
+    },
+    "next_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Next Actions",
+      "type": "array"
+    },
+    "next_note_suggestions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Next Note Suggestions",
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_id",
+    "note_id",
+    "summary"
+  ],
+  "title": "Retrospective",
+  "type": "object"
+}

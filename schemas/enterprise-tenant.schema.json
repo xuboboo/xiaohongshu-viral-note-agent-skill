@@ -1,0 +1,167 @@
+{
+  "$defs": {
+    "TenantPlan": {
+      "enum": [
+        "DEVELOPMENT",
+        "TEAM",
+        "ENTERPRISE"
+      ],
+      "title": "TenantPlan",
+      "type": "string"
+    },
+    "TenantPolicy": {
+      "properties": {
+        "allowed_regions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Regions",
+          "type": "array"
+        },
+        "data_residency_region": {
+          "default": "global",
+          "title": "Data Residency Region",
+          "type": "string"
+        },
+        "daily_cost_limit_usd": {
+          "default": 100.0,
+          "minimum": 0,
+          "title": "Daily Cost Limit Usd",
+          "type": "number"
+        },
+        "monthly_cost_limit_usd": {
+          "default": 2000.0,
+          "minimum": 0,
+          "title": "Monthly Cost Limit Usd",
+          "type": "number"
+        },
+        "max_users": {
+          "default": 500,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Max Users",
+          "type": "integer"
+        },
+        "max_concurrent_jobs": {
+          "default": 128,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Max Concurrent Jobs",
+          "type": "integer"
+        },
+        "publish_approval_quorum": {
+          "default": 2,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Publish Approval Quorum",
+          "type": "integer"
+        },
+        "require_separation_of_duties": {
+          "default": true,
+          "title": "Require Separation Of Duties",
+          "type": "boolean"
+        },
+        "require_phishing_resistant_mfa_for_publish": {
+          "default": true,
+          "title": "Require Phishing Resistant Mfa For Publish",
+          "type": "boolean"
+        },
+        "retention_days": {
+          "default": 365,
+          "maximum": 3650,
+          "minimum": 1,
+          "title": "Retention Days",
+          "type": "integer"
+        },
+        "legal_hold": {
+          "default": false,
+          "title": "Legal Hold",
+          "type": "boolean"
+        },
+        "allowed_model_providers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Model Providers",
+          "type": "array"
+        },
+        "allowed_search_providers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Search Providers",
+          "type": "array"
+        },
+        "allowed_publish_accounts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Publish Accounts",
+          "type": "array"
+        },
+        "blocked_content_categories": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blocked Content Categories",
+          "type": "array"
+        }
+      },
+      "title": "TenantPolicy",
+      "type": "object"
+    },
+    "TenantStatus": {
+      "enum": [
+        "ACTIVE",
+        "SUSPENDED",
+        "DELETED"
+      ],
+      "title": "TenantStatus",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "plan": {
+      "$ref": "#/$defs/TenantPlan",
+      "default": "ENTERPRISE"
+    },
+    "status": {
+      "$ref": "#/$defs/TenantStatus",
+      "default": "ACTIVE"
+    },
+    "domains": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Domains",
+      "type": "array"
+    },
+    "policy": {
+      "$ref": "#/$defs/TenantPolicy"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "display_name"
+  ],
+  "title": "Tenant",
+  "type": "object"
+}

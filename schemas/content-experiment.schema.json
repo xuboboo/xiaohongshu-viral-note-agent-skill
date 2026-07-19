@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "ExperimentVariant": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": true,
+          "title": "Payload",
+          "type": "object"
+        },
+        "allocation": {
+          "default": 1.0,
+          "exclusiveMinimum": 0,
+          "title": "Allocation",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "payload"
+      ],
+      "title": "ExperimentVariant",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "hypothesis": {
+      "title": "Hypothesis",
+      "type": "string"
+    },
+    "primary_metric": {
+      "title": "Primary Metric",
+      "type": "string"
+    },
+    "variants": {
+      "items": {
+        "$ref": "#/$defs/ExperimentVariant"
+      },
+      "title": "Variants",
+      "type": "array"
+    },
+    "status": {
+      "default": "DRAFT",
+      "title": "Status",
+      "type": "string"
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Started At"
+    },
+    "ended_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ended At"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_id",
+    "name",
+    "hypothesis",
+    "primary_metric",
+    "variants"
+  ],
+  "title": "Experiment",
+  "type": "object"
+}

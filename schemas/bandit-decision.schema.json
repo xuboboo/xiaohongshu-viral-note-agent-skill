@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "policy_id": {
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "subject_id": {
+      "title": "Subject Id",
+      "type": "string"
+    },
+    "arm_id": {
+      "title": "Arm Id",
+      "type": "string"
+    },
+    "score": {
+      "title": "Score",
+      "type": "number"
+    },
+    "exploration_bonus": {
+      "title": "Exploration Bonus",
+      "type": "number"
+    },
+    "context": {
+      "items": {
+        "type": "number"
+      },
+      "title": "Context",
+      "type": "array"
+    },
+    "context_features": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Context Features",
+      "type": "object"
+    },
+    "context_schema_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Context Schema Version"
+    },
+    "decided_at": {
+      "format": "date-time",
+      "title": "Decided At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_id",
+    "subject_id",
+    "arm_id",
+    "score",
+    "exploration_bonus",
+    "context"
+  ],
+  "title": "BanditDecision",
+  "type": "object"
+}

@@ -1,0 +1,139 @@
+{
+  "$defs": {
+    "PublishMode": {
+      "enum": [
+        "DRAFT_ONLY",
+        "REQUIRE_CONFIRMATION",
+        "SCHEDULED_AUTO_PUBLISH",
+        "FULLY_AUTOMATED"
+      ],
+      "title": "PublishMode",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "draft_id": {
+      "title": "Draft Id",
+      "type": "string"
+    },
+    "account_id": {
+      "title": "Account Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "default": "local",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "approved_by": {
+      "default": "local-cli",
+      "title": "Approved By",
+      "type": "string"
+    },
+    "approver_auth_level": {
+      "default": 1,
+      "title": "Approver Auth Level",
+      "type": "integer"
+    },
+    "expected_content_hash": {
+      "title": "Expected Content Hash",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/PublishMode",
+      "default": "REQUIRE_CONFIRMATION"
+    },
+    "approval_token": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approval Token"
+    },
+    "approval_token_hash": {
+      "title": "Approval Token Hash",
+      "type": "string"
+    },
+    "approved_at": {
+      "format": "date-time",
+      "title": "Approved At",
+      "type": "string"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "title": "Expires At",
+      "type": "string"
+    },
+    "used_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Used At"
+    },
+    "scheduled_for": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Scheduled For"
+    },
+    "ai_disclosure_confirmed": {
+      "default": false,
+      "title": "Ai Disclosure Confirmed",
+      "type": "boolean"
+    },
+    "commercial_disclosure_confirmed": {
+      "default": false,
+      "title": "Commercial Disclosure Confirmed",
+      "type": "boolean"
+    },
+    "account_identity_confirmed": {
+      "default": false,
+      "title": "Account Identity Confirmed",
+      "type": "boolean"
+    },
+    "enterprise_approval_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Enterprise Approval Id"
+    }
+  },
+  "required": [
+    "id",
+    "draft_id",
+    "account_id",
+    "expected_content_hash",
+    "approval_token_hash",
+    "expires_at"
+  ],
+  "title": "PublishApproval",
+  "type": "object"
+}

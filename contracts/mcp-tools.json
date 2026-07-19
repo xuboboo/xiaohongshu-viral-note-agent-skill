@@ -1,0 +1,1907 @@
+[
+  {
+    "name": "search_hot_notes",
+    "description": "[研究/选题] 搜索公开网页索引或授权数据中的近期小红书热门笔记，并返回 hot_insights（爆款标签/热度带/原因）。若未配置搜索 API，且未传入 web_results，会返回 needs_web_search，宿主 agent 应先 websearch 再带着 web_results 重试。公开结果不代表站内全量热榜。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "time_range": {
+          "type": "string",
+          "default": "7d"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "web_results": {
+          "type": "array",
+          "description": "宿主 websearch 结果。每项至少 url+title；可含 snippet/published_at/互动数字段。",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "source_rank": {
+                "type": "integer"
+              },
+              "likes": {
+                "type": "integer"
+              },
+              "saves": {
+                "type": "integer"
+              },
+              "comments": {
+                "type": "integer"
+              },
+              "shares": {
+                "type": "integer"
+              },
+              "views": {
+                "type": "integer"
+              },
+              "author_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "title"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "research",
+      "category_label": "研究/选题"
+    },
+    "annotations": {
+      "category": "research"
+    }
+  },
+  {
+    "name": "search_trending_topics",
+    "description": "[研究/选题] 搜索并返回趋势主题、可点选选题建议 topic_suggestions、公开索引覆盖警告。无搜索密钥时可先 websearch，再传 web_results。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "time_range": {
+          "type": "string",
+          "default": "7d"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "web_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "title"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "research",
+      "category_label": "研究/选题"
+    },
+    "annotations": {
+      "category": "research"
+    }
+  },
+  {
+    "name": "analyze_hot_notes",
+    "description": "[研究/选题] 分析热门笔记中的用户问题、标题机制、内容缺口与可点选选题。无搜索密钥时可先 websearch，再传 web_results。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "time_range": {
+          "type": "string",
+          "default": "7d"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "web_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "title"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "research",
+      "category_label": "研究/选题"
+    },
+    "annotations": {
+      "category": "research"
+    }
+  },
+  {
+    "name": "generate_xhs_note",
+    "description": "[生成/改写] 研究趋势并生成原创小红书图文或视频内容包。若 research_current_trends=true 且未配置搜索 API，可传入 web_results（宿主 websearch 结果）或先收到 needs_web_search。可用 suggested_topic/topic_angle 承接 topic_suggestions 一跳生成。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "objective": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "graphic",
+            "video"
+          ]
+        },
+        "distribution_mode": {
+          "type": "string",
+          "enum": [
+            "search",
+            "recommendation",
+            "hybrid"
+          ]
+        },
+        "commercial_status": {
+          "type": "string"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "target_audience": {
+          "type": "string"
+        },
+        "product": {
+          "type": "object"
+        },
+        "brand_voice": {
+          "type": "object"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "candidate_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "provider": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "research_current_trends": {
+          "type": "boolean"
+        },
+        "suggested_topic": {
+          "type": "string"
+        },
+        "topic_angle": {
+          "type": "string"
+        },
+        "topic_reason": {
+          "type": "string"
+        },
+        "note_style": {
+          "type": "string",
+          "description": "review|seeding|avoid_pitfall|checklist|tutorial|store_visit|comparison|decision"
+        },
+        "narrative_framework": {
+          "type": "string",
+          "description": "pas|aida|bab|quest|four_p|scqa|auto"
+        },
+        "variant_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "video_duration_seconds": {
+          "type": "integer",
+          "enum": [
+            15,
+            30,
+            45,
+            60
+          ],
+          "description": "口播分镜时长模板（秒）"
+        },
+        "web_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "title"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "generate",
+      "category_label": "生成/改写"
+    },
+    "annotations": {
+      "category": "generate"
+    }
+  },
+  {
+    "name": "plan_content_outline",
+    "description": "[生成/改写] 仅生成创作大纲（框架阶段、开场钩子、情绪曲线、CTA），不生成全文；可先 outline 再 generate。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "note_style": {
+          "type": "string"
+        },
+        "narrative_framework": {
+          "type": "string"
+        },
+        "target_audience": {
+          "type": "string"
+        },
+        "product": {
+          "type": "object"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "variant_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "generate",
+      "category_label": "生成/改写"
+    },
+    "annotations": {
+      "category": "generate"
+    }
+  },
+  {
+    "name": "rewrite_xhs_note",
+    "description": "[生成/改写] 去 AI 味、降低广告感并保持事实不变地改写笔记。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "commercial_status": {
+          "type": "string"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "generate",
+      "category_label": "生成/改写"
+    },
+    "annotations": {
+      "category": "generate"
+    }
+  },
+  {
+    "name": "diagnose_xhs_note",
+    "description": "[生成/改写] 诊断笔记的合规、原创性、AI 风格和结构问题。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "candidate_image_asset_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reference_image_asset_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "generate",
+      "category_label": "生成/改写"
+    },
+    "annotations": {
+      "category": "generate"
+    }
+  },
+  {
+    "name": "verify_claims",
+    "description": "[校验门禁] 提取客观声明并根据提供证据生成声明台账。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "verify",
+      "category_label": "校验门禁"
+    },
+    "annotations": {
+      "category": "verify"
+    }
+  },
+  {
+    "name": "check_originality",
+    "description": "[校验门禁] 检查与参考文本的字面和语义相似风险。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "candidate_image_asset_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20
+        },
+        "reference_image_asset_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "verify",
+      "category_label": "校验门禁"
+    },
+    "annotations": {
+      "category": "verify"
+    }
+  },
+  {
+    "name": "check_compliance",
+    "description": "[校验门禁] 检查虚构体验、功效、极限词、商业披露和其他高风险表达。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "commercial_status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "verify",
+      "category_label": "校验门禁"
+    },
+    "annotations": {
+      "category": "verify"
+    }
+  },
+  {
+    "name": "query_account_weight",
+    "description": "[账号/登录] 根据授权数据估算账号健康与内容分发能力；不是小红书官方内部权重。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "analytics": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "account",
+      "category_label": "账号/登录"
+    },
+    "annotations": {
+      "category": "account"
+    }
+  },
+  {
+    "name": "query_content_health",
+    "description": "[账号/登录] 根据授权笔记表现估算内容健康度（互动/收藏/节奏/搜索/风险等）；非官方质量分。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "analytics": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "account",
+      "category_label": "账号/登录"
+    },
+    "annotations": {
+      "category": "account"
+    }
+  },
+  {
+    "name": "diagnose_account",
+    "description": "[账号/登录] 联合账号权重与内容健康度诊断；返回 conflict_notes、combined_actions 与 generate_payload（可一跳生成）。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "analytics": {
+          "type": "object"
+        },
+        "base_topic": {
+          "type": "string",
+          "description": "可选：诊断动作映射到该主题的 generate_payload"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "account",
+      "category_label": "账号/登录"
+    },
+    "annotations": {
+      "category": "account"
+    }
+  },
+  {
+    "name": "suggest_topics_by_health",
+    "description": "[研究/选题] 根据账号内容健康度弱项/强项生成或重排选题（可叠加 query 热门研究）。返回 strategy + topic_suggestions（含 generate_payload）。非官方推荐算法。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "analytics": {
+          "type": "object"
+        },
+        "base_topic": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string",
+          "description": "可选：叠加热门研究后按健康度重排"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "web_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "title"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 12
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "research",
+      "category_label": "研究/选题"
+    },
+    "annotations": {
+      "category": "research"
+    }
+  },
+  {
+    "name": "sync_account_analytics",
+    "description": "[账号/登录] 保存用户授权提供的账号分析数据。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "analytics": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "account_id",
+        "analytics"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "account",
+      "category_label": "账号/登录"
+    },
+    "annotations": {
+      "category": "account"
+    }
+  },
+  {
+    "name": "start_account_login",
+    "description": "[账号/登录] 启动用户扫码登录。不会绕过验证码或风险验证。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "account"
+    },
+    "_meta": {
+      "category": "account",
+      "category_label": "账号/登录"
+    }
+  },
+  {
+    "name": "check_account_login",
+    "description": "[账号/登录] 检查授权登录状态。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "account",
+      "category_label": "账号/登录"
+    },
+    "annotations": {
+      "category": "account"
+    }
+  },
+  {
+    "name": "logout_account",
+    "description": "[账号/登录] 退出并可删除本地加密会话。必须显式批准。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "delete_session": {
+          "type": "boolean",
+          "default": true
+        },
+        "approved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "account_id",
+        "approved"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": true,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "account"
+    },
+    "_meta": {
+      "category": "account",
+      "category_label": "账号/登录"
+    }
+  },
+  {
+    "name": "create_publish_draft",
+    "description": "[发布流] 为指定账号创建受控发布草稿。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "package": {
+          "type": "object"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "package"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "publish"
+    },
+    "_meta": {
+      "category": "publish",
+      "category_label": "发布流"
+    }
+  },
+  {
+    "name": "preview_publish_draft",
+    "description": "[发布流] 填充创作平台并生成发布预览。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "draft_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "draft_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "publish"
+    },
+    "_meta": {
+      "category": "publish",
+      "category_label": "发布流"
+    }
+  },
+  {
+    "name": "approve_publish_draft",
+    "description": "[发布流] 为当前内容 Hash 创建短期发布批准令牌。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "draft_id": {
+          "type": "string"
+        },
+        "ttl_minutes": {
+          "type": "integer"
+        },
+        "ai_disclosure_confirmed": {
+          "type": "boolean"
+        },
+        "commercial_disclosure_confirmed": {
+          "type": "boolean"
+        },
+        "account_identity_confirmed": {
+          "type": "boolean"
+        },
+        "enterprise_approval_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "draft_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "publish"
+    },
+    "_meta": {
+      "category": "publish",
+      "category_label": "发布流"
+    }
+  },
+  {
+    "name": "publish_note",
+    "description": "[发布流] 发布已预览且获得批准的内容。必须显式批准。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "draft_id": {
+          "type": "string"
+        },
+        "approval_token": {
+          "type": "string"
+        },
+        "approved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "draft_id",
+        "approval_token",
+        "approved"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": false,
+      "category": "publish"
+    },
+    "_meta": {
+      "category": "publish",
+      "category_label": "发布流"
+    }
+  },
+  {
+    "name": "schedule_note",
+    "description": "[发布流] 定时发布已批准内容。必须显式批准。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "draft_id": {
+          "type": "string"
+        },
+        "approval_token": {
+          "type": "string"
+        },
+        "scheduled_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "approved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "draft_id",
+        "approval_token",
+        "scheduled_at",
+        "approved"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": false,
+      "category": "publish"
+    },
+    "_meta": {
+      "category": "publish",
+      "category_label": "发布流"
+    }
+  },
+  {
+    "name": "get_enterprise_controls",
+    "description": "[企业管控] 返回租户数据驻留、审批、MFA、预算和审计控制状态。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "enterprise",
+      "category_label": "企业管控"
+    },
+    "annotations": {
+      "category": "enterprise"
+    }
+  },
+  {
+    "name": "get_enterprise_budget",
+    "description": "[企业管控] 返回租户每日和每月成本预算、承诺与剩余额度。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "enterprise",
+      "category_label": "企业管控"
+    },
+    "annotations": {
+      "category": "enterprise"
+    }
+  },
+  {
+    "name": "create_enterprise_approval",
+    "description": "[企业管控] 为高风险资源创建多人审批工作流。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "resource_type": {
+          "type": "string"
+        },
+        "resource_id": {
+          "type": "string"
+        },
+        "content_hash": {
+          "type": "string"
+        },
+        "ttl_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120
+        }
+      },
+      "required": [
+        "resource_type",
+        "resource_id"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "enterprise"
+    },
+    "_meta": {
+      "category": "enterprise",
+      "category_label": "企业管控"
+    }
+  },
+  {
+    "name": "decide_enterprise_approval",
+    "description": "[企业管控] 使用独立审批者和抗钓鱼 MFA 对企业审批作出决定。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "approval_id": {
+          "type": "string"
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "APPROVE",
+            "REJECT"
+          ]
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "approval_id",
+        "decision"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "enterprise"
+    },
+    "_meta": {
+      "category": "enterprise",
+      "category_label": "企业管控"
+    }
+  },
+  {
+    "name": "verify_enterprise_audit",
+    "description": "[企业管控] 验证租户不可篡改审计哈希链。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "enterprise",
+      "category_label": "企业管控"
+    },
+    "annotations": {
+      "category": "enterprise"
+    }
+  },
+  {
+    "name": "enterprise_dlp_scan",
+    "description": "[企业管控] 检测并脱敏文本中的个人信息、私钥和 API 密钥。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "redact": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "enterprise",
+      "category_label": "企业管控"
+    },
+    "annotations": {
+      "category": "enterprise"
+    }
+  },
+  {
+    "name": "sync_published_metrics",
+    "description": "[发后运营] 保存用户授权的发布后表现快照。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "metrics"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "get_performance_attribution",
+    "description": "[发后运营] 将指定笔记与账号历史基线比较，输出谨慎的相关性归因。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "note_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "note_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "get_account_weight_trend",
+    "description": "[发后运营] 返回账号权重历史快照和趋势方向。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "create_content_calendar",
+    "description": "[发后运营] 根据账号画像和主题创建内容日历；topics 可空时用 fallback_topics（如复盘 next_note_suggestions.topic）。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallback_topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "days": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 365
+        },
+        "posts_per_week": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "create_content_series",
+    "description": "[发后运营] 创建连续系列选题与每集承接关系。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "audience": {
+          "type": "string"
+        },
+        "episode_count": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 30
+        }
+      },
+      "required": [
+        "account_id",
+        "title",
+        "topic",
+        "audience"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "create_abn_experiment",
+    "description": "[发后运营] 创建 A/B/n 内容实验。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "experiment": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "experiment"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "assign_experiment_variant",
+    "description": "[发后运营] 为实验主体稳定分配变体。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "experiment_id": {
+          "type": "string"
+        },
+        "subject_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "experiment_id",
+        "subject_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "record_experiment_outcome",
+    "description": "[发后运营] 记录实验指标结果。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "outcome": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "outcome"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "analyze_abn_experiment",
+    "description": "[发后运营] 分析 A/B/n 实验结果，输出置信区间、样本充分性与建议变体。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "experiment_id": {
+          "type": "string"
+        },
+        "minimum_samples_per_variant": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 100000,
+          "default": 20
+        }
+      },
+      "required": [
+        "experiment_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "choose_content_bandit",
+    "description": "[发后运营] 使用 LinUCB 上下文策略选择内容机制。可用 features 自动编码账号权重/时段/类目。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "string"
+        },
+        "subject_id": {
+          "type": "string"
+        },
+        "arms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "context": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "features": {
+          "type": "object"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "auto_account_weight": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": [
+        "policy_id",
+        "subject_id",
+        "arms"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "update_content_bandit",
+    "description": "[发后运营] 使用观测奖励更新 LinUCB 策略。context 与 features 二选一。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "string"
+        },
+        "arm_id": {
+          "type": "string"
+        },
+        "context": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "features": {
+          "type": "object"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "auto_account_weight": {
+          "type": "boolean",
+          "default": true
+        },
+        "reward": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "policy_id",
+        "arm_id",
+        "reward"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "search_asset_library",
+    "description": "[发后运营] 按标签查询租户素材库。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "generate_retrospective",
+    "description": "[发后运营] 根据发布后表现自动复盘并生成下一篇建议。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        },
+        "note_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id",
+        "note_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "list_job_dead_letters",
+    "description": "[任务运维] 列出 Redis 分布式任务死信。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "jobs",
+      "category_label": "任务运维"
+    },
+    "annotations": {
+      "category": "jobs"
+    }
+  },
+  {
+    "name": "replay_job_dead_letter",
+    "description": "[任务运维] 重放指定 Redis 任务死信。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "string"
+        },
+        "approved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "message_id",
+        "approved"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "destructiveHint": false,
+      "openWorldHint": true,
+      "idempotentHint": true,
+      "category": "jobs"
+    },
+    "_meta": {
+      "category": "jobs",
+      "category_label": "任务运维"
+    }
+  },
+  {
+    "name": "analyze_performance",
+    "description": "[发后运营] 根据用户提供的发布表现数据生成谨慎复盘，不把相关性伪装成因果。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "metrics"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "operations",
+      "category_label": "发后运营"
+    },
+    "annotations": {
+      "category": "operations"
+    }
+  },
+  {
+    "name": "draft_comment_reply",
+    "description": "[生成/改写] 生成授权评论回复草稿，仅供人工粘贴；auto_submit 恒为 false，不会自动发评。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "original_comment": {
+          "type": "string"
+        },
+        "note_context": {
+          "type": "string"
+        },
+        "tone": {
+          "type": "string",
+          "enum": [
+            "helpful",
+            "brief",
+            "empathetic"
+          ]
+        },
+        "comment_id": {
+          "type": "string"
+        },
+        "note_id": {
+          "type": "string"
+        },
+        "max_candidates": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        }
+      },
+      "required": [
+        "original_comment"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "generate",
+      "category_label": "生成/改写"
+    },
+    "annotations": {
+      "category": "generate"
+    }
+  },
+  {
+    "name": "generate_xhs_note_variants",
+    "description": "[生成/改写] 同一主题生成 1–5 个交付包变体，按就绪分排序，便于标题/置顶评 A/B。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "variant_count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "graphic",
+            "video"
+          ]
+        },
+        "target_audience": {
+          "type": "string"
+        },
+        "commercial_status": {
+          "type": "string"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "note_style": {
+          "type": "string"
+        },
+        "narrative_framework": {
+          "type": "string"
+        },
+        "brand_voice": {
+          "type": "object"
+        },
+        "product": {
+          "type": "object"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "research_current_trends": {
+          "type": "boolean"
+        },
+        "suggested_topic": {
+          "type": "string"
+        },
+        "topic_angle": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "web_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "title"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "generate",
+      "category_label": "生成/改写"
+    },
+    "annotations": {
+      "category": "generate"
+    }
+  },
+  {
+    "name": "generate_from_hot",
+    "description": "[生成/改写] 热门→选题→一键生成：搜索公开热门/趋势后自动选题并生成交付包。dry_run=true 时只返回 topic_suggestions；false 时复用同一研究报吿生成，避免二次搜索。仍为公开索引估算，不是站内官方热榜。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "suggestion_index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "suggestion_topic": {
+          "type": "string"
+        },
+        "dry_run": {
+          "type": "boolean",
+          "default": false
+        },
+        "use_account_health": {
+          "type": "boolean",
+          "default": false,
+          "description": "为 true 且提供 account_id 时，按内容健康度重排选题并推荐 note_style"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "graphic",
+            "video"
+          ]
+        },
+        "video_duration_seconds": {
+          "type": "integer",
+          "enum": [
+            15,
+            30,
+            45,
+            60
+          ]
+        },
+        "note_style": {
+          "type": "string"
+        },
+        "narrative_framework": {
+          "type": "string"
+        },
+        "target_audience": {
+          "type": "string"
+        },
+        "commercial_status": {
+          "type": "string"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "brand_voice": {
+          "type": "object"
+        },
+        "product": {
+          "type": "object"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "provider": {
+          "type": "string"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "web_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "snippet": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "title"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "generate",
+      "category_label": "生成/改写"
+    },
+    "annotations": {
+      "category": "generate"
+    }
+  },
+  {
+    "name": "get_publish_windows",
+    "description": "[发布流] 根据账号画像返回建议发帖星期与时段（启发式，非官方流量秘密）。",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "account_id"
+      ],
+      "additionalProperties": false
+    },
+    "_meta": {
+      "category": "publish",
+      "category_label": "发布流"
+    },
+    "annotations": {
+      "category": "publish"
+    }
+  }
+]

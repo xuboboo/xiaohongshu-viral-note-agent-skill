@@ -1,0 +1,57 @@
+{
+  "properties": {
+    "evidence_id": {
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "excerpt": {
+      "title": "Excerpt",
+      "type": "string"
+    },
+    "locator": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Locator"
+    },
+    "excerpt_sha256": {
+      "title": "Excerpt Sha256",
+      "type": "string"
+    },
+    "confidence": {
+      "default": "MEDIUM",
+      "title": "Confidence",
+      "type": "string"
+    },
+    "valid_until": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Valid Until"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "source",
+    "excerpt",
+    "excerpt_sha256"
+  ],
+  "title": "EvidenceReference",
+  "type": "object"
+}
