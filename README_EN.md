@@ -26,6 +26,20 @@ So I fused five years of operational methodology with AI engineering into this S
 
 ---
 
+## Product Showcase
+
+<p align="center">
+  <img src="assets/screenshots/screenshot-1.png" width="80%" alt="Screenshot 1"><br><br>
+  <img src="assets/screenshots/screenshot-2.png" width="80%" alt="Screenshot 2"><br><br>
+  <img src="assets/screenshots/screenshot-3.png" width="80%" alt="Screenshot 3"><br><br>
+  <img src="assets/screenshots/screenshot-4.png" width="80%" alt="Screenshot 4"><br><br>
+  <img src="assets/screenshots/screenshot-5.png" width="80%" alt="Screenshot 5"><br><br>
+  <img src="assets/screenshots/screenshot-6.png" width="80%" alt="Screenshot 6"><br><br>
+  <img src="assets/screenshots/screenshot-7.png" width="80%" alt="Screenshot 7">
+</p>
+
+---
+
 ## What problems does it solve
 
 | Your problem | How it helps |
