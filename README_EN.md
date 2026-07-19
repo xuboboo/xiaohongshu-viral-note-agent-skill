@@ -233,5 +233,6 @@ pip install -e '.[enterprise]'
 
 <p align="center">
   <strong>Let AI handle research and writing. You just review and publish.</strong><br>
-  <sub>Xiaohongshu Viral Note Agent Skill &mdash; from trends to publishing, one package.</sub>
+  <sub>Xiaohongshu Viral Note Agent Skill &mdash; from trends to publishing, one package.</sub><br><br>
+  <sub>Contact: <a href="mailto:contact@xhspro.com">contact@xhspro.com</a></sub>
 </p>

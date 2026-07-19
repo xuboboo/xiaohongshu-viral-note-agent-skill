@@ -270,5 +270,6 @@ mypy src/xhs_skill scripts
 
 <p align="center">
   <strong>让 AI 做内容研究和生成，你只管审稿和发布。</strong><br>
-  <sub>小红书爆款笔记生成 Agent Skill &mdash; 从趋势到发布，一站搞定。</sub>
+  <sub>小红书爆款笔记生成 Agent Skill &mdash; 从趋势到发布，一站搞定。</sub><br><br>
+  <sub>联系邮箱：<a href="mailto:contact@xhspro.com">contact@xhspro.com</a></sub>
 </p>

@@ -62,4 +62,4 @@ pip install -e '.[dev,enterprise,ml,vision]'
 
 ## Questions?
 
-Open an Issue for general questions or discussions.
+Open an Issue for general questions or discussions, or email [contact@xhspro.com](mailto:contact@xhspro.com).
